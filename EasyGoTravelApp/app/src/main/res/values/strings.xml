@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">EasyGo - Travel App</string>
+    <string name="don_t_have_">Don\'t have an account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="log_in">Log In</string>
+    <string name="connect_with_phone">Connect with Phone</string>
+    <string name="connect_with_facebook">Connect with Facebook</string>
+    <string name="easy_discov">Easy discovering new places and share these between your friends</string>
+    <string name="enter_your_">Enter your phone number</string>
+    <string name="phone_verif">Phone Verification</string>
+    <string name="your_phone_">Your phone number</string>
+    <string name="enter_the_4">Enter the 4 digit code sent to your phone</string>
+    <string name="i_have_a_pr">I have a problem.</string>
+
+    <string name="hi_welcome_">Hi,\nWelcome back!</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="forgot_your">Forgot your password?</string>
+
+    <string name="forgot_pass">Forgot password</string>
+    <string name="please_ente">Please enter your email address. You will receive a link to create a new password via email.</string>
+    <string name="email">Email</string>
+    <string name="get_started">Send</string>
+</resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginPhoneNumber"
+    android:background="@color/linear">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bg_logo"
+        android:layout_width="match_parent"
+        android:layout_height="2in"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bg_logo"
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp">
+        <TextView
+            android:id="@+id/review"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/easy_discov"
+            android:textColor="@color/white"
+            android:textSize="17dp"
+            android:layout_marginBottom="67dp"
+            android:gravity="center"/>
+        <EditText
+            android:id="@+id/edtPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_your_"
+            android:textColor="@color/white"
+            android:textColorHint="#4DFFFFFF"
+            android:backgroundTint="@color/white"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:inputType="phone"
+            android:singleLine="true"
+            android:imeOptions="actionNext"/>
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
