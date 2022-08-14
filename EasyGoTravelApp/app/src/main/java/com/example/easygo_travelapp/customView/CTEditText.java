@@ -1,9 +1,10 @@
-package com.example.easygo_travelapp;
+package com.example.easygo_travelapp.customView;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,37 +19,32 @@ public class CTEditText extends LinearLayout {
     private TextView tvTitle;
     private EditText edtInput;
 
+    private String title,content;
+
     public CTEditText(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         initComponents(context);
-//        showAttribute(context,attrs);
+        showAttribute(context,attrs);
     }
 
     private void showAttribute(Context context, AttributeSet atr) {
         TypedArray typedArray = context.obtainStyledAttributes(atr, R.styleable.CTEditText);
-        int count = typedArray.getIndexCount();
-
         try {
-            for (int i = 0; i < count; i++) {
-                int attr = typedArray.getIndex(i);
-                if (attr == R.styleable.CTEditText_title) {
-                    setTitle(typedArray.getString(attr));
-                }
-                if (attr == R.styleable.CTEditText_placeholderText) {
-                    setInput(typedArray.getString(attr));
-                }
-            }
-        } finally {
+            title=typedArray.getString(R.styleable.CTEditText_title);
+            content=typedArray.getString(R.styleable.CTEditText_placeholderText);
+            setTitle(title);
+            setInput(content);
+        }
+        finally {
             typedArray.recycle();
         }
-
     }
 
     private void initComponents(Context context) {
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
-        layoutInflater.inflate(R.layout.ctv_edit_text, null);
-        tvTitle = findViewById(R.id.title);
-        edtInput = findViewById(R.id.content);
+        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view=layoutInflater.inflate(R.layout.ctv_edit_text, this,true);
+        tvTitle = view.findViewById(R.id.title);
+        edtInput = view.findViewById(R.id.content);
 
     }
 
@@ -64,7 +60,7 @@ public class CTEditText extends LinearLayout {
         return tvTitle.getText().toString();
     }
 
-    public void setInput(String input) {
-        this.edtInput.setText(input);
+    public void setInput(String content) {
+        this.edtInput.setText(content);
     }
 }

@@ -27,13 +27,13 @@
             android:id="@+id/review"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/easy_discov"
+            android:text="@string/easy_discovering"
             android:textColor="@color/white"
             android:textSize="17dp"
             android:layout_marginBottom="67dp"
             android:gravity="center"/>
         <EditText
-            android:id="@+id/edtPhoneNumber"
+            android:id="@+id/edtYourPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/enter_your_"

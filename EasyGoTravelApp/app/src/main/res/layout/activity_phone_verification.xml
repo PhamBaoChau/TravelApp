@@ -25,7 +25,7 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/phone_verif"
+            android:text="@string/phone_verification"
             android:textColor="@color/white"
             android:textSize="34dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -45,7 +45,7 @@
             app:layout_constraintTop_toBottomOf="@id/title" />
 
         <TextView
-            android:id="@+id/tvPhone"
+            android:id="@+id/tvYourPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -61,7 +61,7 @@
         android:layout_margin="20dp"
         app:layout_constraintTop_toBottomOf="@id/bg_logo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnNext">
+        app:layout_constraintEnd_toStartOf="@id/btnSend">
 
         <TextView
             android:id="@+id/lbEnterCode"
@@ -73,41 +73,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <LinearLayout
+        <com.example.easygo_travelapp.customView.CTGroupInputOTP
             android:id="@+id/grCode"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingHorizontal="10dp"
-            android:weightSum="5"
             app:layout_constraintTop_toBottomOf="@id/lbEnterCode"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <com.example.easygo_travelapp.CTInputOTP
-                android:id="@+id/code1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <com.example.easygo_travelapp.CTInputOTP
-                android:id="@+id/code2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <com.example.easygo_travelapp.CTInputOTP
-                android:id="@+id/code3"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <com.example.easygo_travelapp.CTInputOTP
-                android:id="@+id/code4"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-        </LinearLayout>
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
             android:id="@+id/lbIHaveAProblem"
@@ -117,15 +88,15 @@
             android:textColor="@color/color_1E2432"
             android:textSize="17dp"
             app:layout_constraintTop_toBottomOf="@id/grCode"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="50dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <ImageButton
-        android:id="@+id/btnNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/btnSend"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="@drawable/shape_button_circle"
-        android:padding="10dp"
         android:src="@drawable/ic_action_next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

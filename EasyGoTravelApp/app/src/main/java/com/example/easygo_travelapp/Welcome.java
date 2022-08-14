@@ -28,10 +28,10 @@ public class Welcome extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-//        if (view.getId() == btnPhone.getId()) {
-//            Intent intent = new Intent(Welcome.this, LoginPhoneNumber.class);
-//            startActivity(intent);
-//        }
+        if (view.getId() == btnPhone.getId()) {
+            Intent intent = new Intent(Welcome.this, LoginPhoneNumber.class);
+            startActivity(intent);
+        }
         if (view.getId() == btnLogin.getId()) {
             Intent intent = new Intent(Welcome.this, Login.class);
             startActivity(intent);

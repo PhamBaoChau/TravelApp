@@ -4,8 +4,10 @@
         <attr name="title" format="string"/>
         <attr name="placeholderText" format="string"/>
     </declare-styleable>
-<!--    <declare-styleable name="CTInputOTP">-->
-<!--        <attr name="background" format="reference"/>-->
-<!--        <attr name="Text" format="string"/>-->
-<!--    </declare-styleable>-->
+    <declare-styleable name="CTInputOTP">
+        <attr name="ctiBackground" format="reference"/>
+        <attr name="ctiText" format="string"/>
+    </declare-styleable>
+    <declare-styleable name="grCTInputOTP">
+    </declare-styleable>
 </resources>
