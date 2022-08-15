@@ -32,7 +32,7 @@
             android:name=".Login"
             android:exported="false" />
         <activity
-            android:name=".Welcome"
+            android:name=".PhoneVerification"
             android:exported="false" />
         <activity
             android:name=".LoginPhoneNumber"
@@ -41,7 +41,7 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".PhoneVerification"
+            android:name=".Welcome"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

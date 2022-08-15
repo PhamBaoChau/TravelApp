@@ -1,7 +1,7 @@
 package com.example.easygo_travelapp.customView;
 
 import android.content.Context;
-import android.content.res.TypedArray;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,54 +13,55 @@ import androidx.annotation.Nullable;
 
 import com.example.easygo_travelapp.R;
 
-import java.text.AttributedCharacterIterator;
-
-public class CTEditText extends LinearLayout {
+public class CTEditText extends LinearLayout implements View.OnFocusChangeListener {
     private TextView tvTitle;
     private EditText edtInput;
-
-    private String title,content;
 
     public CTEditText(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         initComponents(context);
-        showAttribute(context,attrs);
-    }
-
-    private void showAttribute(Context context, AttributeSet atr) {
-        TypedArray typedArray = context.obtainStyledAttributes(atr, R.styleable.CTEditText);
-        try {
-            title=typedArray.getString(R.styleable.CTEditText_title);
-            content=typedArray.getString(R.styleable.CTEditText_placeholderText);
-            setTitle(title);
-            setInput(content);
-        }
-        finally {
-            typedArray.recycle();
-        }
     }
 
     private void initComponents(Context context) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view=layoutInflater.inflate(R.layout.ctv_edit_text, this,true);
+        View view = layoutInflater.inflate(R.layout.ctv_edit_text, this, true);
         tvTitle = view.findViewById(R.id.title);
         edtInput = view.findViewById(R.id.content);
-
-    }
-
-    public String getTitle() {
-        return tvTitle.getText().toString();
     }
 
     public void setTitle(String title) {
-        this.edtInput.setText(title);
+        this.tvTitle.setText(title);
     }
 
-    public String getInput() {
-        return tvTitle.getText().toString();
-    }
-
-    public void setInput(String content) {
+    public void setContent(String content) {
         this.edtInput.setText(content);
+    }
+
+    public String getContent() {
+        return edtInput.getText().toString().trim();
+    }
+
+    public void setHint(String title) {
+        this.edtInput.setHint(title);
+    }
+
+    public void updateAction(String input) {
+        if (input.equals(getResources().getString(R.string.password)) ||
+                input.equals(getResources().getString(R.string.confirm_password))) {
+            this.edtInput.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        }
+        setTitle(input);
+        setHint(input);
+        this.tvTitle.setVisibility(INVISIBLE);
+        this.edtInput.setOnFocusChangeListener(this);
+    }
+
+    @Override
+    public void onFocusChange(View view, boolean focus) {
+        if (!focus) {
+            this.tvTitle.setVisibility(INVISIBLE);
+        } else {
+            this.tvTitle.setVisibility(VISIBLE);
+        }
     }
 }

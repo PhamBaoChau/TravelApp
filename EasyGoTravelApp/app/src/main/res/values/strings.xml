@@ -19,6 +19,10 @@
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="forgot_your">Forgot your password?</string>
+    <string name="please_enter_full">Please enter full content</string>
+    <string name="confirm_password_not_match">Confirm password does not match</string>
+    <string name="account_incorrect">Account or Password is incorrect</string>
+    <string name="email_not_exist">Account email is not exist</string>
 
     <string name="forgot_pass">Forgot password</string>
     <string name="please_enter">Please enter your email address. You will receive a link to create a new password via email.</string>
