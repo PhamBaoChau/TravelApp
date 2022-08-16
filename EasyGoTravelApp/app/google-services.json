@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "720215833543-7am5bl9ccq3m5poi9vs9db250edr8142.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.easygo_travelapp",
+            "certificate_hash": "8fb9130923080deadf28652d8a38c0526fbd8b31"
+          }
+        },
+        {
           "client_id": "720215833543-24j5ni4qkbr5803pqk0121u21m4al4d7.apps.googleusercontent.com",
           "client_type": 3
         }

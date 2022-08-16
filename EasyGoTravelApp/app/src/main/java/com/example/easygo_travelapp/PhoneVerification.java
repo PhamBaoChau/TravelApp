@@ -33,10 +33,10 @@ public class PhoneVerification extends AppCompatActivity implements View.OnClick
     ImageButton btnSend;
     private FirebaseAuth mAuth;
 
-    private void initUi(){
-        tvYourPhone=findViewById(R.id.tvYourPhone);
-        groupCode=findViewById(R.id.grCode);
-        btnSend=findViewById(R.id.btnSend);
+    private void initUi() {
+        tvYourPhone = findViewById(R.id.tvYourPhone);
+        groupCode = findViewById(R.id.grCode);
+        btnSend = findViewById(R.id.btnSend);
     }
 
     @Override
@@ -49,20 +49,21 @@ public class PhoneVerification extends AppCompatActivity implements View.OnClick
         mAuth = FirebaseAuth.getInstance();
     }
 
-    private void initAction(){
+    private void initAction() {
         tvYourPhone.setText(mPhoneNumber);
         btnSend.setOnClickListener(this);
     }
 
-    private void getDataIntent(){
-        mPhoneNumber=getIntent().getStringExtra(LoginPhoneNumber.PHONE_NUMBER);
-        idVerification=getIntent().getStringExtra(LoginPhoneNumber.VERIFICATION_ID);
+    private void getDataIntent() {
+        mPhoneNumber = getIntent().getStringExtra(LoginPhoneNumber.PHONE_NUMBER);
+        idVerification = getIntent().getStringExtra(LoginPhoneNumber.VERIFICATION_ID);
     }
 
     @Override
     public void onClick(View view) {
         sendOTPVerification(groupCode.getResultInput());
     }
+
     public void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -89,6 +90,7 @@ public class PhoneVerification extends AppCompatActivity implements View.OnClick
         Intent intent = new Intent(PhoneVerification.this, MainActivity.class);
         intent.putExtra(LoginPhoneNumber.PHONE_NUMBER, phoneNumber);
         startActivity(intent);
+        finishAffinity();
     }
 
     public void sendOTPVerification(String codeInput) {

@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,12 +39,13 @@ public class LoginPhoneNumber extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         edtYourPhone = findViewById(R.id.edtYourPhone);
-        edtYourPhone.setOnKeyListener(new View.OnKeyListener() {
+        edtYourPhone.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                String phoneNumber = edtYourPhone.getText().toString();
-                if (keyEvent.getKeyCode() ==KeyEvent.FLAG_EDITOR_ACTION) {
-                    getOtpVerification(phoneNumber);
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                String phoneNumber = edtYourPhone.getText().toString().trim();
+                if (i != 0 && EditorInfo.IME_MASK_ACTION != 0) {
+                    getOtpVerification("+84" + phoneNumber);
+                    edtYourPhone.clearFocus();
                 }
                 return false;
             }
@@ -87,7 +89,7 @@ public class LoginPhoneNumber extends AppCompatActivity {
 
                             @Override
                             public void onVerificationFailed(@NonNull FirebaseException e) {
-                                Toast.makeText(LoginPhoneNumber.this,R.string.login_failed,Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginPhoneNumber.this, R.string.login_failed, Toast.LENGTH_SHORT).show();
                             }
 
                             @Override

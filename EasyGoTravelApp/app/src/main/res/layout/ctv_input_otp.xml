@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical"
-    android:layout_marginRight="15dp"
+    android:layout_marginRight="5dp"
     android:id="@+id/linearLayout">
 
     <EditText
