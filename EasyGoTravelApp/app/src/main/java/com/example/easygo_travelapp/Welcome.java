@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Arrays;
 
 
 public class Welcome extends AppCompatActivity implements View.OnClickListener {
@@ -91,7 +94,8 @@ public class Welcome extends AppCompatActivity implements View.OnClickListener {
     private void loginFacebook() {
         mCallbackManager = CallbackManager.Factory.create();
         loginButton = findViewById(R.id.btnLoginFB);
-        loginButton.setReadPermissions("email");
+        loginButton.setReadPermissions(Arrays.asList("email"));
+//        loginButton.setReadPermissions("email");
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -104,6 +108,7 @@ public class Welcome extends AppCompatActivity implements View.OnClickListener {
 
             @Override
             public void onError(FacebookException error) {
+                Log.e( "onError: ",error.toString() );
             }
         });
     }
