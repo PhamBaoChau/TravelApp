@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login.loginByEmail.LoginActivity">
+    tools:context=".activity.authentication.LoginActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -39,14 +39,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <com.example.easygo_travelapp.login.loginByEmail.customView.CTEditText
+        <com.example.easygo_travelapp.custom_views.CTEditText
             android:id="@+id/userName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/tvTitle"
             android:layout_marginTop="30dp" />
 
-        <com.example.easygo_travelapp.login.loginByEmail.customView.CTEditText
+        <com.example.easygo_travelapp.custom_views.CTEditText
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
