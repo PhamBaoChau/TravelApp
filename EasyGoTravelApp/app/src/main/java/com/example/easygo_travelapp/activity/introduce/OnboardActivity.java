@@ -1,22 +1,21 @@
-package com.example.easygo_travelapp.onboarding;
+package com.example.easygo_travelapp.activity.introduce;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.easygo_travelapp.MainActivity;
+import com.example.easygo_travelapp.activity.BaseActivity;
+import com.example.easygo_travelapp.activity.MainActivity;
 import com.example.easygo_travelapp.R;
+import com.example.easygo_travelapp.adapter.StatePagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
-public class OnboardActivity extends AppCompatActivity implements View.OnClickListener, TabLayout.OnTabSelectedListener {
+public class OnboardActivity extends BaseActivity implements View.OnClickListener, TabLayout.OnTabSelectedListener {
     private StatePagerAdapter adapter;
     private ViewPager viewPager;
     private TabLayout tabLayout;

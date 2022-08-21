@@ -1,4 +1,4 @@
-package com.example.easygo_travelapp.login.loginByEmail.customView;
+package com.example.easygo_travelapp.custom_views;
 
 import android.app.Activity;
 import android.content.Context;

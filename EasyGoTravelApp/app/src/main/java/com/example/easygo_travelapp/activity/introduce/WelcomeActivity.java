@@ -1,4 +1,4 @@
-package com.example.easygo_travelapp;
+package com.example.easygo_travelapp.activity.introduce;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,10 +10,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.easygo_travelapp.login.loginByEmail.LoginActivity;
-import com.example.easygo_travelapp.login.loginByEmail.SignUpActivity;
-import com.example.easygo_travelapp.login.loginByPhonenumber.LoginPhoneNumberActivity;
-import com.example.easygo_travelapp.onboarding.OnboardActivity;
+import com.example.easygo_travelapp.R;
+import com.example.easygo_travelapp.activity.BaseActivity;
+import com.example.easygo_travelapp.activity.authentication.LoginActivity;
+import com.example.easygo_travelapp.activity.authentication.SignUpActivity;
+import com.example.easygo_travelapp.activity.authentication.LoginPhoneNumberActivity;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -31,7 +32,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Arrays;
 
 
-public class Welcome extends AppCompatActivity implements View.OnClickListener {
+public class WelcomeActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView btnPhone, btnLogin, tvSignUp;
     private CallbackManager mCallbackManager;
@@ -59,15 +60,15 @@ public class Welcome extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (view.getId() == btnPhone.getId()) {
-            Intent intent = new Intent(Welcome.this, LoginPhoneNumberActivity.class);
+            Intent intent = new Intent(WelcomeActivity.this, LoginPhoneNumberActivity.class);
             startActivity(intent);
         }
         if (view.getId() == btnLogin.getId()) {
-            Intent intent = new Intent(Welcome.this, LoginActivity.class);
+            Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
             startActivity(intent);
         }
         if (view.getId() == tvSignUp.getId()) {
-            Intent intent = new Intent(Welcome.this, SignUpActivity.class);
+            Intent intent = new Intent(WelcomeActivity.this, SignUpActivity.class);
             startActivity(intent);
         }
     }
@@ -81,11 +82,11 @@ public class Welcome extends AppCompatActivity implements View.OnClickListener {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(Welcome.this, OnboardActivity.class);
+                            Intent intent = new Intent(WelcomeActivity.this, OnboardActivity.class);
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(Welcome.this, R.string.login_failed, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(WelcomeActivity.this, R.string.login_failed, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
