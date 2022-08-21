@@ -9,21 +9,20 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="200dp">
 
         <ImageView
             android:id="@+id/bg_logo"
             android:layout_width="0dp"
-            android:layout_height="522dp"
+            android:layout_height="match_parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:background="@mipmap/dotmatrix_map_of_world"
-            android:scaleX="1.5"
-            android:scaleY="2" />
+            android:src= "@mipmap/dotmatrix_map_of_world" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -80,19 +79,17 @@
             android:id="@+id/btnLoginFB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
             android:background="@drawable/shape_button_login"
             android:backgroundTint="@color/color_055EEE"
+            android:drawableStart="@drawable/ic_icon_facebook"
+            android:drawablePadding="35dp"
             android:gravity="center_vertical"
+            android:paddingLeft="50dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="@string/connect_with_facebook"
-            android:drawableStart="@drawable/ic_icon_facebook"
-            android:textColor="@color/white"
             android:textSize="15dp"
-            android:textStyle="bold"
-            android:layout_marginBottom="12dp"
-            android:paddingLeft="50dp"
-            android:drawablePadding="35dp"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/btnLoginPhone"

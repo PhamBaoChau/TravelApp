@@ -5,18 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.easygo_travelapp.login.loginByEmail.LoginActivity;
+import com.example.easygo_travelapp.login.loginByEmail.SignUpActivity;
+import com.example.easygo_travelapp.login.loginByPhonenumber.LoginPhoneNumberActivity;
+import com.example.easygo_travelapp.onboarding.OnboardActivity;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,7 +30,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Welcome extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView btnPhone, btnLogin;
+    private TextView btnPhone, btnLogin, tvSignUp;
     private CallbackManager mCallbackManager;
     private FirebaseAuth mAuth;
     private LoginButton loginButton;
@@ -38,6 +38,7 @@ public class Welcome extends AppCompatActivity implements View.OnClickListener {
     private void init() {
         btnPhone = findViewById(R.id.btnLoginPhone);
         btnLogin = findViewById(R.id.btnLogin);
+        tvSignUp = findViewById(R.id.signUp);
     }
 
     @Override
@@ -48,20 +49,26 @@ public class Welcome extends AppCompatActivity implements View.OnClickListener {
         mAuth = FirebaseAuth.getInstance();
         btnPhone.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
+        tvSignUp.setOnClickListener(this);
         loginFacebook();
     }
 
     @Override
     public void onClick(View view) {
         if (view.getId() == btnPhone.getId()) {
-            Intent intent = new Intent(Welcome.this, LoginPhoneNumber.class);
+            Intent intent = new Intent(Welcome.this, LoginPhoneNumberActivity.class);
             startActivity(intent);
         }
         if (view.getId() == btnLogin.getId()) {
-            Intent intent = new Intent(Welcome.this, Login.class);
+            Intent intent = new Intent(Welcome.this, LoginActivity.class);
+            startActivity(intent);
+        }
+        if (view.getId() == tvSignUp.getId()) {
+            Intent intent = new Intent(Welcome.this, SignUpActivity.class);
             startActivity(intent);
         }
     }
+
     private void handleFacebookAccessToken(AccessToken token) {
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
@@ -71,28 +78,30 @@ public class Welcome extends AppCompatActivity implements View.OnClickListener {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent=new Intent(Welcome.this,Onboarding1.class);
+                            Intent intent = new Intent(Welcome.this, OnboardActivity.class);
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(Welcome.this,R.string.login_failed,Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Welcome.this, R.string.login_failed, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
 
-    private void loginFacebook(){
+    private void loginFacebook() {
         mCallbackManager = CallbackManager.Factory.create();
-        loginButton =  findViewById(R.id.btnLoginFB);
+        loginButton = findViewById(R.id.btnLoginFB);
         loginButton.setReadPermissions("email");
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
+
             @Override
             public void onCancel() {
             }
+
             @Override
             public void onError(FacebookException error) {
             }

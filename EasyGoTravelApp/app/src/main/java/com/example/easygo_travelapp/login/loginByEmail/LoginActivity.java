@@ -1,25 +1,25 @@
-package com.example.easygo_travelapp;
+package com.example.easygo_travelapp.login.loginByEmail;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.easygo_travelapp.customView.CTEditText;
+import com.example.easygo_travelapp.R;
+import com.example.easygo_travelapp.login.loginByEmail.customView.CTEditText;
+import com.example.easygo_travelapp.onboarding.OnboardActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class Login extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private CTEditText ctUsername, ctPassword;
     private TextView tvForgot, btnLogin, tvSignUp;
     private FirebaseAuth mAuth;
@@ -32,8 +32,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         tvForgot = findViewById(R.id.forgot);
         tvSignUp = findViewById(R.id.signUp);
         btnLogin = findViewById(R.id.btnLogin);
-        dialog=new ProgressDialog(this);
-        btnBack=findViewById(R.id.btnBack);
+        dialog = new ProgressDialog(this);
+        btnBack = findViewById(R.id.btnBack);
     }
 
     @Override
@@ -57,23 +57,23 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        if (view.getId()==btnBack.getId()){
+        if (view.getId() == btnBack.getId()) {
             onBackPressed();
         }
-        if (view.getId()==tvForgot.getId()){
-            Intent intent = new Intent(Login.this, ForgotPassword.class);
+        if (view.getId() == tvForgot.getId()) {
+            Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
             startActivity(intent);
         }
-        if (view.getId()==tvSignUp.getId()){
-            Intent intent = new Intent(Login.this, SignUp.class);
+        if (view.getId() == tvSignUp.getId()) {
+            Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
             startActivity(intent);
         }
-        if (view.getId()==btnLogin.getId()){
+        if (view.getId() == btnLogin.getId()) {
             dialog.show();
             if (ctUsername.getContent().isEmpty()
                     || ctPassword.getContent().isEmpty()) {
                 dialog.dismiss();
-                Toast.makeText(Login.this, R.string.please_enter_full, Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, R.string.please_enter_full, Toast.LENGTH_SHORT).show();
             } else {
                 SignInWithFireBase(this.ctUsername.getContent(), this.ctPassword.getContent());
             }
@@ -89,11 +89,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         dialog.dismiss();
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Intent intent = new Intent(Login.this, Onboarding1.class);
+                            Intent intent = new Intent(LoginActivity.this, OnboardActivity.class);
                             startActivity(intent);
                             finishAffinity();
                         } else {
-                            Toast.makeText(Login.this,R.string.account_incorrect,
+                            Toast.makeText(LoginActivity.this, R.string.account_incorrect,
                                     Toast.LENGTH_SHORT).show();
                             clearAllContent();
                         }
@@ -101,7 +101,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 });
     }
 
-    private void clearAllContent(){
+    private void clearAllContent() {
         ctUsername.setContent(null);
         ctPassword.setContent(null);
         getCurrentFocus().clearFocus();

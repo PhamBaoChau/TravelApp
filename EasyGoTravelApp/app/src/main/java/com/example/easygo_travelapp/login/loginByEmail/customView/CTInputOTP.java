@@ -1,11 +1,8 @@
-package com.example.easygo_travelapp.customView;
+package com.example.easygo_travelapp.login.loginByEmail.customView;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -15,16 +12,10 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.content.res.ResourcesCompat;
 
-import com.example.easygo_travelapp.PhoneVerification;
 import com.example.easygo_travelapp.R;
-
-import java.lang.ref.Reference;
 
 public class CTInputOTP extends LinearLayout implements View.OnFocusChangeListener, TextWatcher {
     private EditText edtCode;

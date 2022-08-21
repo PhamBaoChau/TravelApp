@@ -1,4 +1,4 @@
-package com.example.easygo_travelapp;
+package com.example.easygo_travelapp.login.loginByPhonenumber;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,17 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.easygo_travelapp.customView.CTGroupInputOTP;
-import com.example.easygo_travelapp.customView.CTInputOTP;
+import com.example.easygo_travelapp.R;
+import com.example.easygo_travelapp.login.loginByEmail.customView.CTGroupInputOTP;
+import com.example.easygo_travelapp.onboarding.OnboardActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.dialog.InsetDialogOnTouchListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
@@ -24,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
-public class PhoneVerification extends AppCompatActivity implements View.OnClickListener {
+public class PhoneVerificationActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView tvYourPhone;
     CTGroupInputOTP groupCode;
@@ -55,8 +53,8 @@ public class PhoneVerification extends AppCompatActivity implements View.OnClick
     }
 
     private void getDataIntent() {
-        mPhoneNumber = getIntent().getStringExtra(LoginPhoneNumber.PHONE_NUMBER);
-        idVerification = getIntent().getStringExtra(LoginPhoneNumber.VERIFICATION_ID);
+        mPhoneNumber = getIntent().getStringExtra(LoginPhoneNumberActivity.PHONE_NUMBER);
+        idVerification = getIntent().getStringExtra(LoginPhoneNumberActivity.VERIFICATION_ID);
     }
 
     @Override
@@ -71,24 +69,23 @@ public class PhoneVerification extends AppCompatActivity implements View.OnClick
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-
                             FirebaseUser user = task.getResult().getUser();
                             // Update UI
-                            goToMainActivity(user.getPhoneNumber());
+                            goToOnboardActivity(user.getPhoneNumber());
                         } else {
                             // Sign in failed, display a message and update the UI
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid
-                                Toast.makeText(PhoneVerification.this, R.string.code_was_invalid, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PhoneVerificationActivity.this, R.string.code_was_invalid, Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
                 });
     }
 
-    private void goToMainActivity(String phoneNumber) {
-        Intent intent = new Intent(PhoneVerification.this, MainActivity.class);
-        intent.putExtra(LoginPhoneNumber.PHONE_NUMBER, phoneNumber);
+    private void goToOnboardActivity(String phoneNumber) {
+        Intent intent = new Intent(PhoneVerificationActivity.this, OnboardActivity.class);
+        intent.putExtra(LoginPhoneNumberActivity.PHONE_NUMBER, phoneNumber);
         startActivity(intent);
         finishAffinity();
     }

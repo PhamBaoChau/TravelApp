@@ -1,4 +1,4 @@
-package com.example.easygo_travelapp;
+package com.example.easygo_travelapp.login.loginByEmail;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,23 +11,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.easygo_travelapp.customView.CTEditText;
+import com.example.easygo_travelapp.R;
+import com.example.easygo_travelapp.login.loginByEmail.customView.CTEditText;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class ForgotPassword extends AppCompatActivity implements View.OnClickListener {
+public class ForgotPasswordActivity extends AppCompatActivity implements View.OnClickListener {
 
     private CTEditText ctEmail;
     private TextView btnSend;
     private ProgressDialog dialog;
     private ImageView btnBack;
 
-    private void init(){
-        dialog=new ProgressDialog(this);
-        ctEmail=findViewById(R.id.email);
-        btnSend=findViewById(R.id.btnSend);
-        btnBack=findViewById(R.id.btnBack);
+    private void init() {
+        dialog = new ProgressDialog(this);
+        ctEmail = findViewById(R.id.email);
+        btnSend = findViewById(R.id.btnSend);
+        btnBack = findViewById(R.id.btnBack);
     }
 
     @Override
@@ -48,9 +49,9 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        if (ctEmail.getContent().isEmpty()){
-            Toast.makeText(this,R.string.please_enter_full,Toast.LENGTH_SHORT);
-        }else {
+        if (ctEmail.getContent().isEmpty()) {
+            Toast.makeText(this, R.string.please_enter_full, Toast.LENGTH_SHORT);
+        } else {
             dialog.show();
             resetPasswordByEmail(ctEmail.getContent());
         }
@@ -65,12 +66,11 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
                     public void onComplete(@NonNull Task<Void> task) {
                         dialog.dismiss();
                         if (task.isSuccessful()) {
-                            Intent intent=new Intent(ForgotPassword.this,Login.class);
+                            Intent intent = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
                             startActivity(intent);
                             finishAffinity();
-                        }
-                        else {
-                            Toast.makeText(ForgotPassword.this, R.string.email_not_exist,
+                        } else {
+                            Toast.makeText(ForgotPasswordActivity.this, R.string.email_not_exist,
                                     Toast.LENGTH_SHORT).show();
                             ctEmail.setTitle(null);
                             getCurrentFocus().clearFocus();

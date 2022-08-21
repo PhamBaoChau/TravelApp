@@ -1,4 +1,4 @@
-package com.example.easygo_travelapp;
+package com.example.easygo_travelapp.login.loginByPhonenumber;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,12 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.easygo_travelapp.MainActivity;
+import com.example.easygo_travelapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -25,7 +26,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
 
-public class LoginPhoneNumber extends AppCompatActivity {
+public class LoginPhoneNumberActivity extends AppCompatActivity {
     public static final String PHONE_NUMBER = "phone_number";
     public static final String VERIFICATION_ID = "verification_id";
     EditText edtYourPhone;
@@ -67,7 +68,7 @@ public class LoginPhoneNumber extends AppCompatActivity {
                             // Sign in failed, display a message and update the UI
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid
-                                Toast.makeText(LoginPhoneNumber.this, R.string.code_was_invalid, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginPhoneNumberActivity.this, R.string.code_was_invalid, Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -89,7 +90,7 @@ public class LoginPhoneNumber extends AppCompatActivity {
 
                             @Override
                             public void onVerificationFailed(@NonNull FirebaseException e) {
-                                Toast.makeText(LoginPhoneNumber.this, R.string.login_failed, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginPhoneNumberActivity.this, R.string.login_failed, Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
@@ -103,13 +104,13 @@ public class LoginPhoneNumber extends AppCompatActivity {
     }
 
     private void goToMainActivity(String phoneNumber) {
-        Intent intent = new Intent(LoginPhoneNumber.this, MainActivity.class);
+        Intent intent = new Intent(LoginPhoneNumberActivity.this, MainActivity.class);
         intent.putExtra(PHONE_NUMBER, phoneNumber);
         startActivity(intent);
     }
 
     private void goToPhoneNumberActivity(String phoneNumber, String idVerification) {
-        Intent intent = new Intent(LoginPhoneNumber.this, PhoneVerification.class);
+        Intent intent = new Intent(LoginPhoneNumberActivity.this, PhoneVerificationActivity.class);
         intent.putExtra(PHONE_NUMBER, phoneNumber);
         intent.putExtra(VERIFICATION_ID, idVerification);
         startActivity(intent);

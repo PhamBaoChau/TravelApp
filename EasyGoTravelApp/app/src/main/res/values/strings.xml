@@ -28,6 +28,7 @@
     <string name="please_enter">Please enter your email address. You will receive a link to create a new password via email.</string>
     <string name="email">Email</string>
     <string name="send">Send</string>
+    <string name="log_out">Log out</string>
 
     <string name="plan_a_trip">Plan a trip</string>
     <string name="detail_plan_a_trip">You can select the date and also We can help you by suggesting you to set a good schedule</string>
@@ -46,4 +47,13 @@
     <string name="facebook_app_id">1064045637571225</string>
     <string name="fb_login_protocol_scheme">fb1234</string>
     <string name="facebook_client_token">56789</string>
+
+    <string name="nav_drawer_open">Open navigation drawer</string>
+    <string name="nav_drawer_close">Close navigation drawer close</string>
+    <string name="home">Home</string>
+    <string name="explore">Explore</string>
+    <string name="my_trips">My trips</string>
+    <string name="favourite">Favourite</string>
+    <string name="profile">Profile</string>
+
 </resources>

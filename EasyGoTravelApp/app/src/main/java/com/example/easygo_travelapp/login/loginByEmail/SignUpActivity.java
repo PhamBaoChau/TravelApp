@@ -1,4 +1,4 @@
-package com.example.easygo_travelapp;
+package com.example.easygo_travelapp.login.loginByEmail;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,18 +7,18 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.easygo_travelapp.customView.CTEditText;
+import com.example.easygo_travelapp.R;
+import com.example.easygo_travelapp.login.loginByEmail.customView.CTEditText;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class SignUp extends AppCompatActivity implements View.OnClickListener {
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
     private CTEditText ctUsername, ctPassword, ctConFirmPass;
     private TextView btnSignup;
     private FirebaseAuth mAuth;
@@ -31,7 +31,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         ctPassword = findViewById(R.id.password);
         ctConFirmPass = findViewById(R.id.confirmPassword);
         btnSignup = findViewById(R.id.btnSignUp);
-        btnBack=findViewById(R.id.btnBack);
+        btnBack = findViewById(R.id.btnBack);
     }
 
     @Override
@@ -88,11 +88,11 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         dialog.dismiss();
                         if (task.isSuccessful()) {
-                            Intent intent = new Intent(SignUp.this, Login.class);
+                            Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                             startActivity(intent);
                             finishAffinity();
                         } else {
-                            Toast.makeText(SignUp.this, R.string.email_not_exist,
+                            Toast.makeText(SignUpActivity.this, R.string.email_not_exist,
                                     Toast.LENGTH_SHORT).show();
                             clearAllContent();
                         }
@@ -100,7 +100,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                 });
     }
 
-    private void clearAllContent(){
+    private void clearAllContent() {
         ctUsername.setContent(null);
         ctPassword.setContent(null);
         ctConFirmPass.setContent(null);

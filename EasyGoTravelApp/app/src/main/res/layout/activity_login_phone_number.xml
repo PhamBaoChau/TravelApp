@@ -4,50 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginPhoneNumber"
-    android:background="@color/linear">
+    android:background="@color/linear"
+    tools:context=".login.loginByPhonenumber.LoginPhoneNumberActivity">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bg_logo"
         android:layout_width="match_parent"
         android:layout_height="2in"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@mipmap/dotmatrix_map_of_world_full"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bg_logo"
         android:orientation="vertical"
-        android:paddingTop="20dp"
         android:paddingStart="40dp"
-        android:paddingEnd="40dp">
+        android:paddingTop="20dp"
+        android:paddingEnd="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bg_logo">
+
         <TextView
             android:id="@+id/review"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="67dp"
+            android:gravity="center"
             android:text="@string/easy_discovering"
             android:textColor="@color/white"
-            android:textSize="17dp"
-            android:layout_marginBottom="67dp"
-            android:gravity="center"/>
+            android:textSize="17dp" />
 
         <EditText
             android:id="@+id/edtYourPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/enter_your_"
-            android:textColor="@color/white"
-            android:textColorHint="#4DFFFFFF"
             android:backgroundTint="@color/white"
-            android:textSize="15dp"
             android:gravity="center"
+            android:hint="@string/enter_your_"
+            android:imeOptions="actionDone"
             android:inputType="number"
             android:singleLine="true"
-            android:imeOptions="actionDone"/>
+            android:textColor="@color/white"
+            android:textColorHint="#4DFFFFFF"
+            android:textSize="15dp" />
     </LinearLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,32 +6,32 @@
     android:paddingHorizontal="10dp"
     android:weightSum="6"
     android:layout_marginTop="10dp">
-        <com.example.easygo_travelapp.customView.CTInputOTP
+        <com.example.easygo_travelapp.login.loginByEmail.customView.CTInputOTP
             android:id="@+id/ctiCode1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
-        <com.example.easygo_travelapp.customView.CTInputOTP
+        <com.example.easygo_travelapp.login.loginByEmail.customView.CTInputOTP
             android:id="@+id/ctiCode2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
-        <com.example.easygo_travelapp.customView.CTInputOTP
+        <com.example.easygo_travelapp.login.loginByEmail.customView.CTInputOTP
             android:id="@+id/ctiCode3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
-        <com.example.easygo_travelapp.customView.CTInputOTP
+        <com.example.easygo_travelapp.login.loginByEmail.customView.CTInputOTP
             android:id="@+id/ctiCode4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
-        <com.example.easygo_travelapp.customView.CTInputOTP
+        <com.example.easygo_travelapp.login.loginByEmail.customView.CTInputOTP
             android:id="@+id/ctiCode5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
-        <com.example.easygo_travelapp.customView.CTInputOTP
+        <com.example.easygo_travelapp.login.loginByEmail.customView.CTInputOTP
             android:id="@+id/ctiCode6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
