@@ -16,7 +16,7 @@
         android:theme="@style/Theme.Design.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".activity.introduce.OnboardActivity"
+            android:name=".onboarding.OnboardActivity"
             android:exported="false" />
 
         <meta-data
@@ -27,25 +27,25 @@
             android:value="@string/facebook_client_token" />
 
         <activity
-            android:name=".activity.authentication.SignUpActivity"
+            android:name=".login.loginByEmail.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.authentication.ForgotPasswordActivity"
+            android:name=".login.loginByEmail.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.authentication.LoginActivity"
+            android:name=".login.loginByEmail.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.authentication.PhoneVerificationActivity"
+            android:name=".login.loginByPhonenumber.PhoneVerificationActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.authentication.LoginPhoneNumberActivity"
+            android:name=".login.loginByPhonenumber.LoginPhoneNumberActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.introduce.WelcomeActivity"
+            android:name=".Welcome"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
