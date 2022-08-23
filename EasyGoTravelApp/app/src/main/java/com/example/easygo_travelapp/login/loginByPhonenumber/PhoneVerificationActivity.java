@@ -1,4 +1,4 @@
-package com.example.easygo_travelapp.activity.authentication;
+package com.example.easygo_travelapp.login.loginByPhonenumber;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,9 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.easygo_travelapp.R;
-import com.example.easygo_travelapp.activity.BaseActivity;
-import com.example.easygo_travelapp.custom_views.CTGroupInputOTP;
-import com.example.easygo_travelapp.activity.introduce.OnboardActivity;
+import com.example.easygo_travelapp.login.loginByEmail.customView.CTGroupInputOTP;
+import com.example.easygo_travelapp.onboarding.OnboardActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -23,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
-public class PhoneVerificationActivity extends BaseActivity implements View.OnClickListener {
+public class PhoneVerificationActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView tvYourPhone;
     CTGroupInputOTP groupCode;

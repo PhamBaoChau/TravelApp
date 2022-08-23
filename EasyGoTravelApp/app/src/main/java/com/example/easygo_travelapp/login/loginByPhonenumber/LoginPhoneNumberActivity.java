@@ -1,4 +1,4 @@
-package com.example.easygo_travelapp.activity.authentication;
+package com.example.easygo_travelapp.login.loginByPhonenumber;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,8 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.easygo_travelapp.activity.BaseActivity;
-import com.example.easygo_travelapp.activity.MainActivity;
+import com.example.easygo_travelapp.MainActivity;
 import com.example.easygo_travelapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,7 +26,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
 
-public class LoginPhoneNumberActivity extends BaseActivity {
+public class LoginPhoneNumberActivity extends AppCompatActivity {
     public static final String PHONE_NUMBER = "phone_number";
     public static final String VERIFICATION_ID = "verification_id";
     EditText edtYourPhone;

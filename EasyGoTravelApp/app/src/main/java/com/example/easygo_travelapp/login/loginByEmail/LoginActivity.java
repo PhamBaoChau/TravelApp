@@ -1,4 +1,4 @@
-package com.example.easygo_travelapp.activity.authentication;
+package com.example.easygo_travelapp.login.loginByEmail;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,15 +12,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.easygo_travelapp.R;
-import com.example.easygo_travelapp.activity.BaseActivity;
-import com.example.easygo_travelapp.custom_views.CTEditText;
-import com.example.easygo_travelapp.activity.introduce.OnboardActivity;
+import com.example.easygo_travelapp.login.loginByEmail.customView.CTEditText;
+import com.example.easygo_travelapp.onboarding.OnboardActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private CTEditText ctUsername, ctPassword;
     private TextView tvForgot, btnLogin, tvSignUp;
     private FirebaseAuth mAuth;

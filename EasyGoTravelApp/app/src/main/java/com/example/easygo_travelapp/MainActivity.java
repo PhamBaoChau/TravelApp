@@ -1,4 +1,4 @@
-package com.example.easygo_travelapp.activity;
+package com.example.easygo_travelapp;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,9 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.easygo_travelapp.R;
-
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
@@ -27,7 +25,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         init();
 
-        toolbar.setNavigationIcon(R.drawable.ic_icon_facebook);
+        toolbar.setNavigationIcon(R.drawable.ic_menu);
         setSupportActionBar(toolbar);
         initAction();
         getSupportActionBar().setTitle(null);
