@@ -1,4 +1,4 @@
-package com.example.easygo_travelapp.login.loginByEmail;
+package com.example.easygo_travelapp.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.easygo_travelapp.R;
-import com.example.easygo_travelapp.login.loginByEmail.customView.CTEditText;
+import com.example.easygo_travelapp.customView.CTEditText;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

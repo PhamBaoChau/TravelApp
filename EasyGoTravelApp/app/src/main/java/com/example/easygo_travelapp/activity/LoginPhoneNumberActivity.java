@@ -1,4 +1,4 @@
-package com.example.easygo_travelapp.login.loginByPhonenumber;
+package com.example.easygo_travelapp.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.easygo_travelapp.MainActivity;
 import com.example.easygo_travelapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

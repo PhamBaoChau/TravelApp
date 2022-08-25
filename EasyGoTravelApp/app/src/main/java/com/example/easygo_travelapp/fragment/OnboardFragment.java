@@ -1,4 +1,4 @@
-package com.example.easygo_travelapp.onboarding;
+package com.example.easygo_travelapp.fragment;
 
 import android.os.Bundle;
 
@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.example.easygo_travelapp.R;
 

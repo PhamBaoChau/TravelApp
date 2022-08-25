@@ -1,4 +1,4 @@
-package com.example.easygo_travelapp;
+package com.example.easygo_travelapp.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,10 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.easygo_travelapp.login.loginByEmail.LoginActivity;
-import com.example.easygo_travelapp.login.loginByEmail.SignUpActivity;
-import com.example.easygo_travelapp.login.loginByPhonenumber.LoginPhoneNumberActivity;
-import com.example.easygo_travelapp.onboarding.OnboardActivity;
+import com.example.easygo_travelapp.R;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;

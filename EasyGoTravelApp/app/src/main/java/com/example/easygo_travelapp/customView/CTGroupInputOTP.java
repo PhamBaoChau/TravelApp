@@ -1,4 +1,4 @@
-package com.example.easygo_travelapp.login.loginByEmail.customView;
+package com.example.easygo_travelapp.customView;
 
 import android.content.Context;
 import android.util.AttributeSet;

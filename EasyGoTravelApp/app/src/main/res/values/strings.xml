@@ -55,5 +55,11 @@
     <string name="my_trips">My trips</string>
     <string name="favourite">Favourite</string>
     <string name="profile">Profile</string>
-
+    <string name="flights">Flights</string>
+    <string name="hotels">Hotels</string>
+    <string name="trains">Trains</string>
+    <string name="cars">Cars</string>
+    <string name="view_all">View all</string>
+    <string name="destinations_we_love">Destinations we love</string>
+    <string name="deals">Deals</string>
 </resources>
