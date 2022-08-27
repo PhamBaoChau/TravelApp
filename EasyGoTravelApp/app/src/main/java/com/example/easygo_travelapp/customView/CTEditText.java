@@ -48,7 +48,7 @@ public class CTEditText extends LinearLayout implements View.OnFocusChangeListen
     public void updateAction(String input) {
         if (input.equals(getResources().getString(R.string.password)) ||
                 input.equals(getResources().getString(R.string.confirm_password))) {
-            this.edtInput.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            this.edtInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         }
         setTitle(input);
         setHint(input);

@@ -1,4 +1,4 @@
-package com.example.easygo_travelapp.object;
+package com.example.easygo_travelapp.model;
 
 public class ItemScenic {
     private int idScenic;

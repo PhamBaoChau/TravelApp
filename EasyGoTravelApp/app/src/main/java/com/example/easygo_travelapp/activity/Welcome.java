@@ -105,7 +105,7 @@ public class Welcome extends AppCompatActivity implements View.OnClickListener {
 
             @Override
             public void onError(FacebookException error) {
-                Log.e( "onError: ",error.toString() );
+                Log.e("onError: ", error.toString());
             }
         });
     }

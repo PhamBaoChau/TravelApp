@@ -88,7 +88,7 @@ public class CTInputOTP extends LinearLayout implements View.OnFocusChangeListen
     public void afterTextChanged(Editable editable) {
         if (getValue().isEmpty()) {
             setBgEdtCode(R.drawable.layer_focus);
-            if (codePre!=null){
+            if (codePre != null) {
                 this.edtCode.setOnKeyListener(new OnKeyListener() {
                     @Override
                     public boolean onKey(View view, int i, KeyEvent keyEvent) {
