@@ -1,5 +1,6 @@
 package com.example.easygo_travelapp.customView;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -42,6 +43,7 @@ public class CTRecyclerView extends ConstraintLayout implements View.OnClickList
         ScenicAdapter adapter = new ScenicAdapter(getContext(), list);
         this.rvListItem.setLayoutManager(layoutManager);
         this.rvListItem.setAdapter(adapter);
+        System.out.println("Chau adapter: " +list.toString());
     }
 
     public void setTitle(String title) {
@@ -51,5 +53,9 @@ public class CTRecyclerView extends ConstraintLayout implements View.OnClickList
     @Override
     public void onClick(View view) {
 
+    }
+
+    public void compareContextAndActivity(Activity activity){
+        System.out.println("Chau: "+activity+" "+getContext());
     }
 }

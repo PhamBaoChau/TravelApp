@@ -132,31 +132,33 @@
             </LinearLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <LinearLayout
-            android:id="@+id/contentFrame"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="vertical"
-            android:weightSum="2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBar">
+            app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+            app:layout_constraintTop_toBottomOf="@id/appBar">
 
-            <com.example.easygo_travelapp.customView.CTRecyclerView
-                android:id="@+id/ctRVLove"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"/>
+                android:layout_height="match_parent">
 
-            <com.example.easygo_travelapp.customView.CTRecyclerView
-                android:id="@+id/ctRVDeal"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="15dp"/>
-        </LinearLayout>
+                <com.example.easygo_travelapp.customView.CTRecyclerView
+                    android:id="@+id/ctRVLove"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.example.easygo_travelapp.customView.CTRecyclerView
+                    android:id="@+id/ctRVDeal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/ctRVLove" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
 
 
         <com.google.android.material.bottomnavigation.BottomNavigationView

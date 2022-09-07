@@ -13,7 +13,7 @@ import com.example.easygo_travelapp.R;
 import com.example.easygo_travelapp.adapter.StatePagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
-public class OnboardActivity extends AppCompatActivity implements View.OnClickListener, TabLayout.OnTabSelectedListener {
+public class OnboardActivity extends BaseActivity implements View.OnClickListener, TabLayout.OnTabSelectedListener {
     private StatePagerAdapter adapter;
     private ViewPager viewPager;
     private TabLayout tabLayout;

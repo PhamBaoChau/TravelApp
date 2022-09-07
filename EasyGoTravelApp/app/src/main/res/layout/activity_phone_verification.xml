@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login.loginByPhonenumber.PhoneVerificationActivity">
+    tools:context=".activity.PhoneVerificationActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bg_logo"
@@ -73,7 +73,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <com.example.easygo_travelapp.login.loginByEmail.customView.CTGroupInputOTP
+        <com.example.easygo_travelapp.customView.CTGroupInputOTP
             android:id="@+id/grCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -16,7 +16,10 @@
         android:theme="@style/Theme.EasyGoTravelApp.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".onboarding.OnboardActivity"
+            android:name=".activity.ItemDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.OnboardActivity"
             android:exported="false" />
 
         <meta-data
@@ -27,13 +30,13 @@
             android:value="@string/facebook_client_token" />
 
         <activity
-            android:name=".login.loginByEmail.SignUpActivity"
+            android:name=".activity.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".login.loginByEmail.ForgotPasswordActivity"
+            android:name=".activity.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".login.loginByEmail.LoginActivity"
+            android:name=".activity.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".activity.PhoneVerificationActivity"

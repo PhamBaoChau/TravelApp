@@ -25,7 +25,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
 
-public class LoginPhoneNumberActivity extends AppCompatActivity {
+public class LoginPhoneNumberActivity extends BaseActivity{
     public static final String PHONE_NUMBER = "phone_number";
     public static final String VERIFICATION_ID = "verification_id";
     EditText edtYourPhone;

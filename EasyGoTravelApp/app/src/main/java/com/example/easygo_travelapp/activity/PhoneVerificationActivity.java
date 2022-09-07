@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
-public class PhoneVerificationActivity extends AppCompatActivity implements View.OnClickListener {
+public class PhoneVerificationActivity extends BaseActivity implements View.OnClickListener {
 
     TextView tvYourPhone;
     CTGroupInputOTP groupCode;

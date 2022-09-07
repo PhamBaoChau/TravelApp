@@ -28,7 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Arrays;
 
 
-public class Welcome extends AppCompatActivity implements View.OnClickListener {
+public class Welcome extends BaseActivity implements View.OnClickListener {
 
     private TextView btnPhone, btnLogin, tvSignUp;
     private CallbackManager mCallbackManager;
