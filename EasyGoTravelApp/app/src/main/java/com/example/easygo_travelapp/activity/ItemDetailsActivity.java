@@ -99,11 +99,11 @@ public class ItemDetailsActivity extends BaseActivity {
         name.setText(scenic.getInforCommon().getNameScenic());
         description.setText(scenic.getDescription());
         setRatingStar(scenic.getRating());
-        int nReview = scenic.getReview() != null ? scenic.getReview().size() : 0;
+        int nReview = scenic.getReview() != null ? scenic.getReview().size()-1 : 0;
         review.setText(getString(R.string.review) + " (" + nReview + ")");
 
         String[] sPhotos = scenic.getPhotos().split(",");
-        if (scenic.getTour() != null) {
+        if (scenic.getPhotos()!=null) {
             rvPhotos.setLayoutManager(new GridLayoutManager(ItemDetailsActivity.this,3));
             photoAdapter = new PhotoAdapter(ItemDetailsActivity.this, sPhotos);
             rvPhotos.setAdapter(photoAdapter);

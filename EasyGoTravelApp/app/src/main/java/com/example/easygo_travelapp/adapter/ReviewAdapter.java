@@ -71,7 +71,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ItemViewHo
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return list.size()-1;
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {

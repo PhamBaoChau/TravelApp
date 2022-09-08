@@ -65,12 +65,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         getDataScenic(reference);
         ctRecyclerViewLove.setTitle(getString(R.string.destinations_we_love));
         ctRecyclerViewDeal.setTitle(getString(R.string.deals));
-        ctRecyclerViewDeal.compareContextAndActivity(this);
-//        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this, RecyclerView.HORIZONTAL,false);
-//        ctRecyclerViewLove.showDataRecycleView(listScenic,linearLayoutManager);
-//        GridLayoutManager gridLayoutManager =new GridLayoutManager(this,2);
-//        ctRecyclerViewLove.showDataRecycleView(listScenic,linearLayoutManager);
-//        System.out.println("Chau"+listScenic.toString());
         initAction();
     }
 
@@ -90,13 +84,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 // whenever data at this location is updated.
                 for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
                     ItemScenic itemScenic = itemSnapshot.getValue(ItemScenic.class);
-                    listScenic.add(listScenic.size(), itemScenic);
+                    listScenic.add( itemScenic);
                     System.out.println("Chau: " + listScenic.toString());
                 }
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this, RecyclerView.HORIZONTAL, false);
                 ctRecyclerViewLove.showDataRecycleView(listScenic, linearLayoutManager);
-//                GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this, 2);
-//                ctRecyclerViewDeal.showDataRecycleView(listScenic, gridLayoutManager);
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this, 2);
+                ctRecyclerViewDeal.showDataRecycleView(listScenic, gridLayoutManager);
             }
 
             @Override

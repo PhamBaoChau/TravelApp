@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.easygo_travelapp.R;
@@ -24,6 +25,7 @@ public class ScenicAdapter extends RecyclerView.Adapter<ScenicAdapter.ItemViewHo
     private Context context;
     private List<ItemScenic> listScenic;
     private ItemScenic itemScenic;
+    int pos;
 
     public ScenicAdapter(Context context, List<ItemScenic> listScenic) {
         this.context = context;
@@ -39,19 +41,17 @@ public class ScenicAdapter extends RecyclerView.Adapter<ScenicAdapter.ItemViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        itemScenic = listScenic.get(listScenic.size()-position-1);
+        itemScenic = listScenic.get(position);
         Picasso.get().load(itemScenic.getImageScenic()).into(holder.image);
         holder.name.setText(String.valueOf(itemScenic.getNameScenic()));
         holder.location.setText(itemScenic.getLocation());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("Chau2: "+itemScenic.getIdScenic());
                 Activity activity= (Activity) context;
                 Intent intent=new Intent(activity,ItemDetailsActivity.class);
-                intent.putExtra(ID_SCENIC,itemScenic.getIdScenic());
+                intent.putExtra(ID_SCENIC,listScenic.get(holder.getAdapterPosition()).getIdScenic());
                 activity.startActivity(intent);
-
             }
         });
     }
