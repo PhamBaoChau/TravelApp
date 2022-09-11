@@ -61,14 +61,14 @@
         android:paddingBottom="15dp"
         android:layout_marginTop="15dp"/>
 
-    <ImageView
+    <TextView
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@drawable/shape_line"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/tvFullName"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        android:backgroundTint="@color/color_E4E4E4"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

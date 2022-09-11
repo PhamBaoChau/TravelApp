@@ -70,5 +70,14 @@
     <string name="reply">Reply</string>
     <string name="review">Review</string>
     <string name="add_to_my_trips">Add to my trips</string>
+    <string name="vip_member">VIP member</string>
+    <string name="notifications">Notifications</string>
+    <string name="terms_amp_conditions"><![CDATA[Terms & conditions]]></string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="help_center">Help center</string>
+    <string name="about_us">About us</string>
+    <string name="my_cards">My cards</string>
+    <string name="language">Language</string>
+    <string name="currency">Currency</string>
 
 </resources>
