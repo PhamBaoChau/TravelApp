@@ -29,7 +29,7 @@ public class ProfileActivity extends BaseActivity {
     private NavigationView navigationView;
     private BottomNavigationView bottomNavView;
     private ImageView avatar;
-    private TextView fullName,tvLogin;
+    private TextView fullName,tvVipMember,tvLogin;
 
     private void init() {
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -38,6 +38,7 @@ public class ProfileActivity extends BaseActivity {
         bottomNavView = findViewById(R.id.bottom_navigation);
         avatar=findViewById(R.id.imgAvatar);
         fullName=findViewById(R.id.tvFullName);
+        tvVipMember=findViewById(R.id.tvVipMember);
         tvLogin=findViewById(R.id.tvLogin);
     }
 
@@ -56,8 +57,8 @@ public class ProfileActivity extends BaseActivity {
     private void getCurrentUser() {
         FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
         if (user!=null){
-            avatar.setVisibility(View.VISIBLE);
             fullName.setVisibility(View.VISIBLE);
+            tvVipMember.setVisibility(View.VISIBLE);
             tvLogin.setVisibility(View.GONE);
 
             if (user.getPhotoUrl()!=null&&user.getDisplayName()!=null){
@@ -70,8 +71,8 @@ public class ProfileActivity extends BaseActivity {
             }
         }
         else {
-            avatar.setVisibility(View.GONE);
             fullName.setVisibility(View.GONE);
+            tvVipMember.setVisibility(View.GONE);
             tvLogin.setVisibility(View.VISIBLE);
         }
     }
