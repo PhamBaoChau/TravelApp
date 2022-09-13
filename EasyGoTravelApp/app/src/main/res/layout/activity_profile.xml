@@ -50,6 +50,19 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginStart="20dp">
+
+                    <TextView
+                        android:id="@+id/tvLogin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/log_in"
+                        android:textColor="@color/color_1E2432"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:drawableEnd="@drawable/ic_next"
+                        android:drawablePadding="10dp"
+                        android:gravity="bottom"
+                        android:visibility="gone" />
                     <TextView
                         android:id="@+id/tvFullName"
                         android:layout_width="wrap_content"
@@ -60,7 +73,8 @@
                         android:textStyle="bold"
                         android:drawableEnd="@drawable/ic_next"
                         android:drawablePadding="10dp"
-                        android:gravity="bottom" />
+                        android:gravity="bottom"
+                        android:visibility="gone"/>
 
                     <TextView
                         android:id="@+id/tvVipMember"
@@ -75,7 +89,8 @@
                         android:backgroundTint="@color/red"
                         android:paddingHorizontal="10dp"
                         android:gravity="center"
-                        android:layout_marginTop="14dp"/>
+                        android:layout_marginTop="14dp"
+                        android:visibility="gone"/>
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.appbar.AppBarLayout>

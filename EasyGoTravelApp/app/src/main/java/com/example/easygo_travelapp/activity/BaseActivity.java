@@ -2,6 +2,7 @@ package com.example.easygo_travelapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -20,8 +21,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
-public class BaseActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, NavigationView.OnNavigationItemSelectedListener {
-    DrawerLayout drawerLayout;
+public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, NavigationBarView.OnItemSelectedListener {
+    private DrawerLayout drawerLayout;
+    private MenuItem prev;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +36,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationBarView
     public void initActionToolbar(CTToolbar toolbar, DrawerLayout drawerLayout, NavigationView navigationView) {
         toolbar.setVisibleMenu(drawerLayout, navigationView);
         navigationView.setNavigationItemSelectedListener(this);
-        this.drawerLayout=drawerLayout;
+        this.drawerLayout = drawerLayout;
     }
 
     public void initActionBack(CTToolbar toolbar) {
@@ -56,36 +59,40 @@ public class BaseActivity extends AppCompatActivity implements NavigationBarView
     public void initActionBottomNavView(BottomNavigationView bottomNavigationView) {
         bottomNavigationView.setOnItemSelectedListener(this);
     }
-    MenuItem prevItem = null;
+
+    public void updateBottomNavState(BottomNavigationView bottomNavigationView){
+        int itemId=getIntent().getIntExtra("NavItem",-1);
+        Menu menu=bottomNavigationView.getMenu();
+        for (int i=0;i<menu.size();i++){
+            MenuItem menuItem=menu.getItem(i);
+            menuItem.setChecked(menuItem.getItemId()==itemId);
+        }
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Intent intent;
+        Intent intent = null;
 
         switch (item.getItemId()) {
-
             case R.id.btn_explore:
 
             case R.id.nav_home:
                 intent = new Intent(this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                break;
-
-            case R.id.btn_my_trip:
-                break;
-
-            case R.id.btn_favourite:
                 break;
 
             case R.id.btn_profile:
 
             case R.id.nav_profile:
-                intent=new Intent(this,ProfileActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                intent = new Intent(this, ProfileActivity.class);
+                break;
+
+            case R.id.btn_favourite:
                 break;
 
             case R.id.nav_favourite:
+                break;
+
+            case R.id.btn_my_trip:
                 break;
 
             case R.id.nav_my_trip:
@@ -94,11 +101,9 @@ public class BaseActivity extends AppCompatActivity implements NavigationBarView
             case R.id.nav_log_out:
                 break;
         }
-//        prevItem = item;
-//        if (prevItem != null) {
-//            prevItem.setChecked(false);
-//        }
-//        else item.setChecked(true);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("NavItemId", item.getItemId());
+        startActivity(intent);
 
         this.drawerLayout.closeDrawer(GravityCompat.START);
         return false;
