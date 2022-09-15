@@ -2,9 +2,12 @@ package com.example.easygo_travelapp.customView;
 
 import android.content.Context;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,7 +16,7 @@ import androidx.annotation.Nullable;
 
 import com.example.easygo_travelapp.R;
 
-public class CTEditText extends LinearLayout implements View.OnFocusChangeListener {
+public class CTEditText extends LinearLayout implements View.OnFocusChangeListener, TextView.OnEditorActionListener {
     private TextView tvTitle;
     private EditText edtInput;
 
@@ -27,6 +30,7 @@ public class CTEditText extends LinearLayout implements View.OnFocusChangeListen
         View view = layoutInflater.inflate(R.layout.ctv_edit_text, this, true);
         tvTitle = view.findViewById(R.id.title);
         edtInput = view.findViewById(R.id.content);
+        initActionDone();
     }
 
     public void setTitle(String title) {
@@ -56,6 +60,10 @@ public class CTEditText extends LinearLayout implements View.OnFocusChangeListen
         this.edtInput.setOnFocusChangeListener(this);
     }
 
+    private void initActionDone(){
+        this.edtInput.setOnEditorActionListener(this);
+    }
+
     @Override
     public void onFocusChange(View view, boolean focus) {
         if (!focus) {
@@ -63,5 +71,13 @@ public class CTEditText extends LinearLayout implements View.OnFocusChangeListen
         } else {
             this.tvTitle.setVisibility(VISIBLE);
         }
+    }
+
+    @Override
+    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+        if (i!=0 && EditorInfo.IME_MASK_ACTION!=0){
+            this.edtInput.clearFocus();
+        }
+        return false;
     }
 }

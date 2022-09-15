@@ -79,11 +79,10 @@
     <string name="my_cards">My cards</string>
     <string name="language">Language</string>
     <string name="currency">Currency</string>
-    <string name="no_name">No name</string>
     <string name="save">save</string>
     <string name="phone">Phone</string>
     <string name="gender">Gender</string>
     <string name="date_of_birth">Date of birth</string>
-    <string name="not_been_set">Not seen set</string>
+    <string name="not_been_set">Not been set</string>
 
 </resources>

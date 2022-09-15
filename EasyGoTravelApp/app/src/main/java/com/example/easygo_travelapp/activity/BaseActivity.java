@@ -22,8 +22,8 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, NavigationBarView.OnItemSelectedListener {
+    public static final String GET_USER="get_user";
     private DrawerLayout drawerLayout;
-    private MenuItem prev;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

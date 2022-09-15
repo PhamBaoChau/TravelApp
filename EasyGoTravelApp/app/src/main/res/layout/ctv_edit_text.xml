@@ -18,6 +18,7 @@
         android:textColor="@color/color_1E2432"
         android:textColorHint="@color/color_CCCCCC"
         android:paddingBottom="20dp"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:imeOptions="actionDone"/>
 
 </LinearLayout>

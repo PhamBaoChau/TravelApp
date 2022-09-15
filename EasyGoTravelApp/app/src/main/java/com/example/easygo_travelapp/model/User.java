@@ -1,7 +1,10 @@
 package com.example.easygo_travelapp.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String idUser;
+    private String urlAvatar;
     private String userName;
     private String email;
     private String phone;
@@ -14,6 +17,14 @@ public class User {
 
     public void setIdUser(String idUser) {
         this.idUser = idUser;
+    }
+
+    public String getUrlAvatar() {
+        return urlAvatar;
+    }
+
+    public void setUrlAvatar(String urlAvatar) {
+        this.urlAvatar = urlAvatar;
     }
 
     public String getUserName() {
@@ -56,8 +67,9 @@ public class User {
         this.birthday = birthday;
     }
 
-    public User(String idUser, String userName, String email, String phone, String gender, String birthday) {
+    public User(String idUser, String urlAvatar, String userName, String email, String phone, String gender, String birthday) {
         this.idUser = idUser;
+        this.urlAvatar = urlAvatar;
         this.userName = userName;
         this.email = email;
         this.phone = phone;
@@ -72,6 +84,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "idUser='" + idUser + '\'' +
+                ", urlAvatar='" + urlAvatar + '\'' +
                 ", userName='" + userName + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +

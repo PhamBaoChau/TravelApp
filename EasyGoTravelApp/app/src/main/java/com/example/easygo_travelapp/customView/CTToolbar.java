@@ -27,7 +27,7 @@ public class CTToolbar extends ConstraintLayout implements View.OnClickListener{
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Context context;
-    private TextView title,save;
+    private TextView title;
 
     public CTToolbar(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -45,16 +45,9 @@ public class CTToolbar extends ConstraintLayout implements View.OnClickListener{
         this.icShare=view.findViewById(R.id.icShare);
         this.icSearch=view.findViewById(R.id.icSearch);
         this.title=findViewById(R.id.tvTitle);
-        this.save=findViewById(R.id.tvSave);
     }
     public void setTitleToolbar(String title){
         this.title.setText(title);
-    }
-
-    public void setVisibleSave() {
-        this.save.setVisibility(VISIBLE);
-        this.save.setOnClickListener(this);
-
     }
 
     public void setVisibleMenu(DrawerLayout drawerLayout,NavigationView navigationView) {
@@ -102,10 +95,6 @@ public class CTToolbar extends ConstraintLayout implements View.OnClickListener{
         }
 
         if (view.getId()==icSearch.getId()){
-
-        }
-
-        if (view.getId()==save.getId()){
 
         }
     }
