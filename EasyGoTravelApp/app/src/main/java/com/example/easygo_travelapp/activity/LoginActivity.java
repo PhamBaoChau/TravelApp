@@ -103,6 +103,5 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private void clearAllContent() {
         ctUsername.setContent(null);
         ctPassword.setContent(null);
-        getCurrentFocus().clearFocus();
     }
 }

@@ -93,12 +93,12 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
         ctGender.setTitle(getString(R.string.gender));
         ctBirthday.setTitle(getString(R.string.date_of_birth));
 
-        urlAvatar = urlAvatar.isEmpty() ? "https://www.i-music.com.hk/assets/images/no-avatar.png" : urlAvatar;
-        userName = userName.isEmpty() ? getString(R.string.not_been_set) : userName;
-        email = email.isEmpty() ? getString(R.string.not_been_set) : email;
-        phone = phone.isEmpty() ? getString(R.string.not_been_set) : phone;
-        gender = gender.isEmpty() ? getString(R.string.not_been_set) : gender;
-        birthday = birthday.isEmpty() ? getString(R.string.not_been_set) : birthday;
+        urlAvatar = urlAvatar==null? "https://www.i-music.com.hk/assets/images/no-avatar.png" : urlAvatar;
+        userName = userName==null? getString(R.string.not_been_set) : userName;
+        email = email==null? getString(R.string.not_been_set) : email;
+        phone = phone==null? getString(R.string.not_been_set) : phone;
+        gender = gender==null? getString(R.string.not_been_set) : gender;
+        birthday = birthday==null? getString(R.string.not_been_set) : birthday;
 
         ctUsername.setContent(userName);
         ctEmail.setContent(email);

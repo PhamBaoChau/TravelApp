@@ -103,7 +103,5 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
     private void clearAllContent() {
         ctUsername.setContent(null);
         ctPassword.setContent(null);
-        ctConFirmPass.setContent(null);
-        getCurrentFocus().clearFocus();
-    }
+        ctConFirmPass.setContent(null);}
 }

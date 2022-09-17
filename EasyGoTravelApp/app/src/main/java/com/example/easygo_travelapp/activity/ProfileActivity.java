@@ -39,17 +39,18 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     private NavigationView navigationView;
     private BottomNavigationView bottomNavView;
     private ImageView avatar;
-    private TextView fullName,tvVipMember,tvLogin;
+    private TextView fullName, tvVipMember, tvLogin;
     public User currentUser;
+    DatabaseReference myRef;
 
     private void init() {
         drawerLayout = findViewById(R.id.drawerLayout);
         toolbar = findViewById(R.id.toolbar);
-        navigationView=findViewById(R.id.navigationView);
+        navigationView = findViewById(R.id.navigationView);
         bottomNavView = findViewById(R.id.bottom_navigation);
-        avatar=findViewById(R.id.imgAvatar);
-        fullName=findViewById(R.id.tvFullName);
-        tvVipMember=findViewById(R.id.tvVipMember);
+        avatar = findViewById(R.id.imgAvatar);
+        fullName = findViewById(R.id.tvFullName);
+        tvVipMember = findViewById(R.id.tvVipMember);
 //        tvLogin=findViewById(R.id.tvLogin);
     }
 
@@ -57,22 +58,28 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = firebaseDatabase.getReference("users");
         init();
-        initActionToolbar(toolbar,drawerLayout,navigationView);
+        initActionToolbar(toolbar, drawerLayout, navigationView);
         initActionMenuDetail(toolbar);
         initActionBottomNavView(bottomNavView);
         updateBottomNavState(bottomNavView);
-        getCurrentUser();
+        getCurrentUser(myRef);
         initAction();
     }
-    private void initAction(){
+
+    private void initAction() {
         fullName.setOnClickListener(this);
         avatar.setOnClickListener(this);
     }
 
-    private void getCurrentUser() {
-        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
-        getUserProfile(user.getUid());
+    private void getCurrentUser(DatabaseReference myRef) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user!=null){
+            getUserProfile(user,myRef);
+        }
+
 //        if (user!=null){
 //            fullName.setVisibility(View.VISIBLE);
 //            tvVipMember.setVisibility(View.VISIBLE);
@@ -88,19 +95,32 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 //        }
     }
 
-    private void getUserProfile(String idUser) {
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = firebaseDatabase.getReference("users");
+    private void getUserProfile(FirebaseUser firebaseUser, DatabaseReference myRef) {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                int count = 0;
+                int total = (int) dataSnapshot.getChildrenCount();
+
+                if (total == 0) {
+                    String path = firebaseUser.getPhotoUrl() == null ? null : firebaseUser.getPhotoUrl().getPath();
+                    createProfileUserFirebase(firebaseUser.getUid(), path, firebaseUser.getDisplayName(), firebaseUser.getEmail(), firebaseUser.getPhoneNumber(), null, null);
+                }
+
                 for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
                     User user = itemSnapshot.getValue(User.class);
-                    if (user.getIdUser().equals(idUser)) {
+                    count++;
+                    if (user.getIdUser().equals(firebaseUser.getUid())) {
                         setDataForUi(user);
+                        break;
+                    }
+                    if (count == total) {
+                        String path=firebaseUser.getPhotoUrl()==null?null:firebaseUser.getPhotoUrl().getPath();
+                        createProfileUserFirebase(firebaseUser.getUid(), path, firebaseUser.getDisplayName(), firebaseUser.getEmail(), firebaseUser.getPhoneNumber(), null, null);
                     }
                 }
             }
+
             @Override
             public void onCancelled(DatabaseError error) {
 
@@ -108,24 +128,31 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         });
     }
 
-    private void setDataForUi(User user){
-        currentUser=user;
-        if (!user.getUrlAvatar().isEmpty()&&!user.getUserName().isEmpty()){
+    private void createProfileUserFirebase(String idUser, String urlAvatar, String userName, String email, String phone, String gender, String birthday) {
+        User newUser = new User(idUser, urlAvatar, userName, email, phone, gender, birthday);
+        myRef.child(idUser).setValue(newUser);
+    }
+
+    private void setDataForUi(User user) {
+        currentUser = user;
+        if (user.getUrlAvatar()!=null) {
             Picasso.get().load(user.getUrlAvatar()).into(avatar);
-            fullName.setText(user.getUserName());
-        }
-        else {
+        } else {
             Picasso.get().load("https://www.i-music.com.hk/assets/images/no-avatar.png").into(avatar);
+        }
+        if (user.getUserName()!=null) {
+            fullName.setText(user.getUserName());
+        } else {
             fullName.setText(getString(R.string.not_been_set));
         }
     }
 
     @Override
     public void onClick(View view) {
-        Intent intent=new Intent(this,EditProfileActivity.class);
-        Bundle bundle=new Bundle();
-        bundle.putSerializable(GET_USER,currentUser);
-        intent.putExtra(GET_USER,bundle);
+        Intent intent = new Intent(this, EditProfileActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(GET_USER, currentUser);
+        intent.putExtra(GET_USER, bundle);
         startActivity(intent);
     }
 }
