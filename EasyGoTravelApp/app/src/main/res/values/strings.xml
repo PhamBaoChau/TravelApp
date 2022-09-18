@@ -84,5 +84,6 @@
     <string name="gender">Gender</string>
     <string name="date_of_birth">Date of birth</string>
     <string name="not_been_set">Not been set</string>
+    <string name="avatar_changed_success">Avatar changed successfully</string>
 
 </resources>

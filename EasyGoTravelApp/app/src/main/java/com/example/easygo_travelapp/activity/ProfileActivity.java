@@ -105,18 +105,18 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 if (total == 0) {
                     String path = firebaseUser.getPhotoUrl() == null ? null : firebaseUser.getPhotoUrl().getPath();
                     createProfileUserFirebase(firebaseUser.getUid(), path, firebaseUser.getDisplayName(), firebaseUser.getEmail(), firebaseUser.getPhoneNumber(), null, null);
-                }
-
-                for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
-                    User user = itemSnapshot.getValue(User.class);
-                    count++;
-                    if (user.getIdUser().equals(firebaseUser.getUid())) {
-                        setDataForUi(user);
-                        break;
-                    }
-                    if (count == total) {
-                        String path=firebaseUser.getPhotoUrl()==null?null:firebaseUser.getPhotoUrl().getPath();
-                        createProfileUserFirebase(firebaseUser.getUid(), path, firebaseUser.getDisplayName(), firebaseUser.getEmail(), firebaseUser.getPhoneNumber(), null, null);
+                }else {
+                    for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
+                        User user = itemSnapshot.getValue(User.class);
+                        count++;
+                        if (user.getIdUser().equals(firebaseUser.getUid())) {
+                            setDataForUi(user);
+                            break;
+                        }
+                        if (count == total) {
+                            String path=firebaseUser.getPhotoUrl()==null?null:firebaseUser.getPhotoUrl().getPath();
+                            createProfileUserFirebase(firebaseUser.getUid(), path, firebaseUser.getDisplayName(), firebaseUser.getEmail(), firebaseUser.getPhoneNumber(), null, null);
+                        }
                     }
                 }
             }

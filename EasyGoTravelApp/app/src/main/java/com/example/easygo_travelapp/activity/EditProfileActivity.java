@@ -2,6 +2,8 @@ package com.example.easygo_travelapp.activity;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -14,14 +16,24 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 
 import com.example.easygo_travelapp.R;
 import com.example.easygo_travelapp.customView.CTEditText;
 import com.example.easygo_travelapp.customView.CTToolbar;
 import com.example.easygo_travelapp.model.User;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StreamDownloadTask;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 public class EditProfileActivity extends BaseActivity implements View.OnClickListener {
     private CTToolbar toolbar;
@@ -32,16 +44,21 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference myRef;
     private User user;
+    private Uri uri;
 
     private ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
         public void onActivityResult(ActivityResult result) {
             if (result.getResultCode() == RESULT_OK) {
-                Uri uri = result.getData().getData();
-                System.out.println("Chau url: " + getPath(uri));
-                System.out.println("Chau url: " + uri.toString());
-
-//                user.setUrlAvatar(getPath(uri));
+                uri = result.getData().getData();
+                Bitmap bitmap = null;
+                try {
+                    bitmap = (Bitmap) MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                avatar.setImageBitmap(bitmap);
+                updateFromDataInMemory();
             }
         }
     });
@@ -76,14 +93,45 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
         btnCamera.setOnClickListener(this);
     }
 
-    private String getPath(Uri uri) {
+    private void updateFromDataInMemory() {
+        // Get the data from an ImageView as bytes
+        avatar.setDrawingCacheEnabled(true);
+        avatar.buildDrawingCache();
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference("avatars/" + getNameImage(uri));
+        Bitmap bitmap = ((BitmapDrawable) avatar.getDrawable()).getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = storageRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+                System.out.println("Loi " + exception);
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                String url="https://"+taskSnapshot.getUploadSessionUri().getHost()+
+                        taskSnapshot.getUploadSessionUri().getPath()+"/avatars%2F"+
+                        taskSnapshot.getStorage().getName()+"?alt=media";
+
+                user.setUrlAvatar(url);
+
+            }
+        });
+    }
+
+    private String getNameImage(Uri uri) {
         String[] projection = {MediaStore.Images.Media.DATA};
         Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
         int cursorIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
         String path = cursor.getString(cursorIndex);
-        cursor.close();
-        return path;
+        String[] name = path.split("/");
+        return name[name.length - 1];
     }
 
     private void setInforUser(String urlAvatar, String userName, String email, String phone, String gender, String birthday) {
@@ -93,12 +141,12 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
         ctGender.setTitle(getString(R.string.gender));
         ctBirthday.setTitle(getString(R.string.date_of_birth));
 
-        urlAvatar = urlAvatar==null? "https://www.i-music.com.hk/assets/images/no-avatar.png" : urlAvatar;
-        userName = userName==null? getString(R.string.not_been_set) : userName;
-        email = email==null? getString(R.string.not_been_set) : email;
-        phone = phone==null? getString(R.string.not_been_set) : phone;
-        gender = gender==null? getString(R.string.not_been_set) : gender;
-        birthday = birthday==null? getString(R.string.not_been_set) : birthday;
+        urlAvatar = urlAvatar == null ? "https://www.i-music.com.hk/assets/images/no-avatar.png" : urlAvatar;
+        userName = userName == null ? getString(R.string.not_been_set) : userName;
+        email = email == null ? getString(R.string.not_been_set) : email;
+        phone = phone == null ? getString(R.string.not_been_set) : phone;
+        gender = gender == null ? getString(R.string.not_been_set) : gender;
+        birthday = birthday == null ? getString(R.string.not_been_set) : birthday;
 
         ctUsername.setContent(userName);
         ctEmail.setContent(email);
@@ -160,5 +208,6 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
         }
         User newUser = new User(user.getIdUser(), user.getUrlAvatar(), sUserName, sEmail, sPhone, sGender, sBirthday);
         myRef.child(user.getIdUser()).setValue(newUser);
+
     }
 }
