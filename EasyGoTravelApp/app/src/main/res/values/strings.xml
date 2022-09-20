@@ -86,4 +86,7 @@
     <string name="not_been_set">Not been set</string>
     <string name="avatar_changed_success">Avatar changed successfully</string>
 
+
+    <string name="MyAppKey">AIzaSyBAGb1FxWvAUO-yLT2fmFregdhEvriV8MU</string>
+
 </resources>

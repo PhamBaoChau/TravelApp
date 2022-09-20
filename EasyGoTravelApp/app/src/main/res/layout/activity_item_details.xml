@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_marginTop="200dp"
-                android:background="@drawable/shape_border_radius"
+                android:background="@drawable/shape_border_radius_top"
                 android:paddingHorizontal="20dp"
                 android:paddingTop="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
