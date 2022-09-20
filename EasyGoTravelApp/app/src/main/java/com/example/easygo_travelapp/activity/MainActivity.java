@@ -11,6 +11,7 @@ import com.example.easygo_travelapp.R;
 import com.example.easygo_travelapp.customView.CTRecyclerView;
 import com.example.easygo_travelapp.customView.CTToolbar;
 import com.example.easygo_travelapp.model.ItemScenic;
+import com.example.easygo_travelapp.utilities.URLs;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
@@ -51,7 +52,7 @@ public class MainActivity extends BaseActivity {
 
         //Container
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference reference = firebaseDatabase.getReference("destinationWeLove");
+        DatabaseReference reference = firebaseDatabase.getReference(URLs.destinationWeLove);
         getDataScenic(reference);
         ctRecyclerViewLove.setTitle(getString(R.string.destinations_we_love));
         ctRecyclerViewDeal.setTitle(getString(R.string.deals));
