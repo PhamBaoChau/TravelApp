@@ -88,5 +88,6 @@
 
 
     <string name="MyAppKey">AIzaSyBAGb1FxWvAUO-yLT2fmFregdhEvriV8MU</string>
+    <string name="days">days</string>
 
 </resources>

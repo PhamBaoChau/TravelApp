@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -23,6 +25,8 @@ import com.google.android.material.navigation.NavigationView;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, NavigationBarView.OnItemSelectedListener {
     public static final String GET_USER="get_user";
+    public static final String GET_OBJECT="get_object";
+    public static final String GET_TOUR="get_tour";
     private DrawerLayout drawerLayout;
 
     @Override
@@ -31,6 +35,25 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         System.out.println("################### ACTIVITY ########################");
         System.out.println("Activity name: " + this.getLocalClassName());
         System.out.println("######################################################");
+    }
+    public void setRatingStar(int rating, ImageView star1,ImageView star2,ImageView star3,ImageView star4,ImageView star5) {
+        for (int i = rating; i == rating; i++) {
+            if (i < 5) {
+                star5.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.color_BEC2CE));
+            } else break;
+            if (i < 4) {
+                star4.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.color_BEC2CE));
+            } else break;
+            if (i < 3) {
+                star3.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.color_BEC2CE));
+            } else break;
+            if (i < 2) {
+                star2.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.color_BEC2CE));
+            } else break;
+            if (i < 1) {
+                star1.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.color_BEC2CE));
+            } else break;
+        }
     }
 
     public void initActionToolbar(CTToolbar toolbar, DrawerLayout drawerLayout, NavigationView navigationView) {

@@ -15,6 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyGoTravelApp.NoActionBar"
         tools:targetApi="31">
+        <activity
+            android:name=".activity.Welcome"
+            android:exported="false" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/MyAppKey" />
@@ -58,10 +62,10 @@
             android:name=".activity.LoginPhoneNumberActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.Welcome"
+            android:name=".activity.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.TourActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

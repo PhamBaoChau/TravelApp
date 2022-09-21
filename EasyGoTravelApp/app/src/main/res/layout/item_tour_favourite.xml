@@ -15,6 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:cardCornerRadius="4dp">
         <ImageView
+            android:scaleType="fitXY"
             android:id="@+id/imgTour"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -40,8 +41,7 @@
         android:textColor="@color/color_BEC2CE"
         android:textSize="15dp"
         android:drawableStart="@drawable/ic_marker"
-        android:drawableTint="@color/color_BEC2CE"
-        android:layout_marginTop="5dp"/>
+        android:drawableTint="@color/color_BEC2CE" />
 
     <ImageView
         android:id="@+id/imgBookMark"
@@ -52,51 +52,61 @@
         android:background="@drawable/ic_bookmark"
         android:backgroundTint="@color/color_FF2D55"/>
 
-    <ImageView
-        android:id="@+id/imgStar1"
-        android:layout_width="wrap_content"
+
+
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/ic_star"
         app:layout_constraintStart_toStartOf="@id/tvNameTour"
-        app:layout_constraintBottom_toBottomOf="@+id/cvImage"/>
+        app:layout_constraintEnd_toStartOf="@id/tvTimeTour"
+        app:layout_constraintBottom_toBottomOf="@+id/cvImage"
+        android:orientation="horizontal"
+        android:gravity="bottom">
+        <ImageView
+            android:id="@+id/imgStar1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:background="@drawable/ic_star"
+            app:layout_constraintStart_toStartOf="@id/tvNameTour"
+            app:layout_constraintBottom_toBottomOf="@+id/cvImage"/>
 
-    <ImageView
-        android:id="@+id/imgStar2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:background="@drawable/ic_star"
-        app:layout_constraintStart_toEndOf="@id/imgStar1"
-        app:layout_constraintTop_toTopOf="@id/imgStar1" />
+        <ImageView
+            android:id="@+id/imgStar2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:background="@drawable/ic_star"
+            app:layout_constraintStart_toEndOf="@id/imgStar1"
+            app:layout_constraintTop_toTopOf="@id/imgStar1" />
 
-    <ImageView
-        android:id="@+id/imgStar3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:background="@drawable/ic_star"
-        app:layout_constraintStart_toEndOf="@id/imgStar2"
-        app:layout_constraintTop_toTopOf="@id/imgStar2" />
+        <ImageView
+            android:id="@+id/imgStar3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:background="@drawable/ic_star"
+            app:layout_constraintStart_toEndOf="@id/imgStar2"
+            app:layout_constraintTop_toTopOf="@id/imgStar2" />
 
-    <ImageView
-        android:id="@+id/imgStar4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:background="@drawable/ic_star"
-        app:layout_constraintStart_toEndOf="@id/imgStar3"
-        app:layout_constraintTop_toTopOf="@id/imgStar3" />
+        <ImageView
+            android:id="@+id/imgStar4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:background="@drawable/ic_star"
+            app:layout_constraintStart_toEndOf="@id/imgStar3"
+            app:layout_constraintTop_toTopOf="@id/imgStar3" />
 
-    <ImageView
-        android:id="@+id/imgStar5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:background="@drawable/ic_star"
-        app:layout_constraintStart_toEndOf="@id/imgStar4"
-        app:layout_constraintTop_toTopOf="@id/imgStar4" />
+        <ImageView
+            android:id="@+id/imgStar5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:background="@drawable/ic_star"
+            app:layout_constraintStart_toEndOf="@id/imgStar4"
+            app:layout_constraintTop_toTopOf="@id/imgStar4" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvTimeTour"

@@ -47,7 +47,15 @@ public class TourAndTicket {
         this.price = price;
     }
 
+
     public TourAndTicket() {
+    }
+
+    public TourAndTicket(int idTour, String imageTour, String nameTour, int rating) {
+        this.idTour = idTour;
+        this.imageTour = imageTour;
+        this.nameTour = nameTour;
+        this.rating = rating;
     }
 
     public TourAndTicket(int idTour, String imageTour, String nameTour, int rating, int price) {

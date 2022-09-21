@@ -98,7 +98,7 @@ public class ItemDetailsActivity extends BaseActivity {
         location.setText(scenic.getInforCommon().getLocation());
         name.setText(scenic.getInforCommon().getNameScenic());
         description.setText(scenic.getDescription());
-        setRatingStar(scenic.getRating());
+        setRatingStar(scenic.getRating(),star1,star2,star3,star4,star5);
         int nReview = scenic.getReview() != null ? scenic.getReview().size()-1 : 0;
         review.setText(getString(R.string.review) + " (" + nReview + ")");
 
@@ -121,25 +121,5 @@ public class ItemDetailsActivity extends BaseActivity {
             rvReviews.setAdapter(reviewAdapter);
         }
 
-    }
-
-    public void setRatingStar(int rating) {
-        for (int i = rating; i == rating; i++) {
-            if (i < 5) {
-                star5.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.color_BEC2CE));
-            } else break;
-            if (i < 4) {
-                star4.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.color_BEC2CE));
-            } else break;
-            if (i < 3) {
-                star3.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.color_BEC2CE));
-            } else break;
-            if (i < 2) {
-                star2.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.color_BEC2CE));
-            } else break;
-            if (i < 1) {
-                star1.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.color_BEC2CE));
-            } else break;
-        }
     }
 }
