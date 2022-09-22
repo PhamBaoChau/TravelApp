@@ -53,27 +53,27 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.ItemVIewHolder
                 Activity activity=(Activity)context;
                 Intent intent=new Intent(activity, TourDetailActivity.class);
                 bundle.putSerializable(BaseActivity.GET_TOUR,tours.get(holder.getAdapterPosition()));
-                intent.putExtra(BaseActivity.GET_OBJECT,bundle);
+                intent.putExtra(BaseActivity.GET_TOUR,bundle);
                 activity.startActivity(intent);
             }
         });
     }
 
-    public void setRatingStar(int rating, ImageView star1,ImageView star2,ImageView star3,ImageView star4,ImageView star5) {
-        for (int i = rating; i == rating; i++) {
-            if (i < 5) {
+    public void setRatingStar(double rating, ImageView star1,ImageView star2,ImageView star3,ImageView star4,ImageView star5) {
+        while (rating != 0) {
+            if (rating < 5) {
                 star5.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.color_BEC2CE));
             } else break;
-            if (i < 4) {
+            if (rating < 4) {
                 star4.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.color_BEC2CE));
             } else break;
-            if (i < 3) {
+            if (rating < 3) {
                 star3.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.color_BEC2CE));
             } else break;
-            if (i < 2) {
+            if (rating < 2) {
                 star2.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.color_BEC2CE));
             } else break;
-            if (i < 1) {
+            if (rating< 1) {
                 star1.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.color_BEC2CE));
             } else break;
         }

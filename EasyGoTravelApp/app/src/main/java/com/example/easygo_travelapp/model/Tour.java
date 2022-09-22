@@ -3,7 +3,7 @@ package com.example.easygo_travelapp.model;
 import java.io.Serializable;
 import java.util.List;
 
-public class Tour extends TourDetail implements Serializable{
+public class Tour extends TourAndTicket implements Serializable{
     private String location;
     private int timeTour;
     private List<TourDetail>detailTour;
@@ -35,8 +35,8 @@ public class Tour extends TourDetail implements Serializable{
     public Tour() {
     }
 
-    public Tour(int idTour, String imageTour, String nameTour, int rating, double latitude, double longitude, String location, int timeTour, List<TourDetail> detailTour) {
-        super(idTour, imageTour, nameTour, rating, latitude, longitude);
+    public Tour(int idTour, String imageTour, String nameTour, int rating, int price, String location, int timeTour, List<TourDetail> detailTour) {
+        super(idTour, imageTour, nameTour, rating, price);
         this.location = location;
         this.timeTour = timeTour;
         this.detailTour = detailTour;

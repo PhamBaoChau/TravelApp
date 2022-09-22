@@ -53,6 +53,7 @@ public class TourActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
+                System.out.println("Chau Loi"+error);
             }
         });
     }

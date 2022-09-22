@@ -1,10 +1,12 @@
 package com.example.easygo_travelapp.model;
 
-public class TourAndTicket {
+import java.io.Serializable;
+
+public class TourAndTicket implements Serializable {
     private int idTour;
     private String imageTour;
     private String nameTour;
-    private int rating;
+    private double rating;
     private int price;
 
     public int getIdTour() {
@@ -31,11 +33,11 @@ public class TourAndTicket {
         this.nameTour = nameTour;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 
@@ -51,14 +53,14 @@ public class TourAndTicket {
     public TourAndTicket() {
     }
 
-    public TourAndTicket(int idTour, String imageTour, String nameTour, int rating) {
+    public TourAndTicket(int idTour, String imageTour, String nameTour, double rating) {
         this.idTour = idTour;
         this.imageTour = imageTour;
         this.nameTour = nameTour;
         this.rating = rating;
     }
 
-    public TourAndTicket(int idTour, String imageTour, String nameTour, int rating, int price) {
+    public TourAndTicket(int idTour, String imageTour, String nameTour, double rating, int price) {
         this.idTour = idTour;
         this.imageTour = imageTour;
         this.nameTour = nameTour;

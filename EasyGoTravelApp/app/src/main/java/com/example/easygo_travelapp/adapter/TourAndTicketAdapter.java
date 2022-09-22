@@ -41,23 +41,26 @@ public class TourAndTicketAdapter extends RecyclerView.Adapter<TourAndTicketAdap
         Picasso.get().load(item.getImageTour()).into(holder.imgTour);
         holder.nameTour.setText(item.getNameTour());
         holder.price.setText("$" + item.getPrice());
+        setRatingStar(item.getRating(), holder.star1,holder.star2, holder.star3, holder.star4, holder.star5);
+    }
 
-        for (int i=item.getRating();i==item.getRating();i++) {
-            if (i < 5) {
-                holder.star5.setBackgroundTintList(ContextCompat.getColorStateList(context,R.color.color_BEC2CE));
+    public void setRatingStar(double rating, ImageView star1,ImageView star2,ImageView star3,ImageView star4,ImageView star5) {
+        while (rating != 0) {
+            if (rating < 5) {
+                star5.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.color_BEC2CE));
             } else break;
-            if (i < 4) {
-                holder.star4.setBackgroundTintList(ContextCompat.getColorStateList(context,R.color.color_BEC2CE));
+            if (rating < 4) {
+                star4.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.color_BEC2CE));
             } else break;
-            if (i < 3) {
-                holder.star3.setBackgroundTintList(ContextCompat.getColorStateList(context,R.color.color_BEC2CE));
+            if (rating < 3) {
+                star3.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.color_BEC2CE));
             } else break;
-            if (i < 2){
-                holder.star2.setBackgroundTintList(ContextCompat.getColorStateList(context,R.color.color_BEC2CE));
-            }else break;
-            if (i < 1){
-                holder.star1.setBackgroundTintList(ContextCompat.getColorStateList(context,R.color.color_BEC2CE));
-            }else break;
+            if (rating < 2) {
+                star2.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.color_BEC2CE));
+            } else break;
+            if (rating< 1) {
+                star1.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.color_BEC2CE));
+            } else break;
         }
     }
 
