@@ -24,6 +24,9 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, NavigationBarView.OnItemSelectedListener {
+    public static final String USERS = "users";
+    public static final String SCENICS = "scenics";
+    public static final String REVIEW = "review";
     public static final String GET_USER="get_user";
     public static final String GET_OBJECT="get_object";
     public static final String GET_TOUR="get_tour";

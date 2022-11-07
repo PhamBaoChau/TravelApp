@@ -46,7 +46,7 @@
 
     <string name="facebook_app_id">1064045637571225</string>
     <string name="fb_login_protocol_scheme">fb1234</string>
-    <string name="facebook_client_token">56789</string>
+    <string name="facebook_client_token">1064045637571225</string>
 
     <string name="nav_drawer_open">Open navigation drawer</string>
     <string name="nav_drawer_close">Close navigation drawer close</string>
@@ -89,5 +89,6 @@
 
     <string name="MyAppKey">AIzaSyBmGXfcm5JuBE61KzW8v7dgsO894rodVoA</string>
     <string name="days">days</string>
+    <string name="write_your_review">Write your review ...</string>
 
 </resources>

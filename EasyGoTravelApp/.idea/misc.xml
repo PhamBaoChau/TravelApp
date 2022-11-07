@@ -29,6 +29,7 @@
         <entry key="..\:/EasyGoTravelApp/app/src/main/res/layout/ctv_edit_text.xml" value="0.264" />
         <entry key="..\:/EasyGoTravelApp/app/src/main/res/layout/ctv_input_otp.xml" value="0.2" />
         <entry key="..\:/TravelApp/EasyGoTravelApp/app/src/main/res/drawable-anydpi/ic_action_back.xml" value="0.1475" />
+        <entry key="..\:/TravelApp/EasyGoTravelApp/app/src/main/res/drawable-anydpi/ic_action_name.xml" value="0.1475" />
         <entry key="..\:/TravelApp/EasyGoTravelApp/app/src/main/res/drawable/ic_1_dollar_2.xml" value="0.1475" />
         <entry key="..\:/TravelApp/EasyGoTravelApp/app/src/main/res/drawable/ic_5_headphones.xml" value="0.1475" />
         <entry key="..\:/TravelApp/EasyGoTravelApp/app/src/main/res/drawable/ic_6_info.xml" value="0.1475" />
@@ -68,6 +69,8 @@
         <entry key="..\:/TravelApp/EasyGoTravelApp/app/src/main/res/drawable/shape_boder_radius.xml" value="0.1475" />
         <entry key="..\:/TravelApp/EasyGoTravelApp/app/src/main/res/drawable/shape_border_circle.xml" value="0.1475" />
         <entry key="..\:/TravelApp/EasyGoTravelApp/app/src/main/res/drawable/shape_border_radius.xml" value="0.1475" />
+        <entry key="..\:/TravelApp/EasyGoTravelApp/app/src/main/res/drawable/shape_border_radius_black.xml" value="0.1475" />
+        <entry key="..\:/TravelApp/EasyGoTravelApp/app/src/main/res/drawable/shape_border_radius_top.xml" value="0.1475" />
         <entry key="..\:/TravelApp/EasyGoTravelApp/app/src/main/res/drawable/shape_button_circle.xml" value="0.1475" />
         <entry key="..\:/TravelApp/EasyGoTravelApp/app/src/main/res/drawable/shape_button_login.xml" value="0.1475" />
         <entry key="..\:/TravelApp/EasyGoTravelApp/app/src/main/res/drawable/shape_circle.xml" value="0.1475" />

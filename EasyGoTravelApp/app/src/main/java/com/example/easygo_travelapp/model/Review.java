@@ -1,37 +1,25 @@
 package com.example.easygo_travelapp.model;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Review {
-    private int idReview;
-    private String avatar;
-    private String fullName;
+    private String idUser;
     private String time;
     private String content;
     private List<Review> replies;
 
-    public int getIdReview() {
-        return idReview;
+    public String getIdUser() {
+        return idUser;
     }
 
-    public void setIdReview(int idReview) {
-        this.idReview = idReview;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
     }
 
     public String getTime() {
@@ -61,10 +49,8 @@ public class Review {
     public Review() {
     }
 
-    public Review(int idReview, String avatar, String fullName, String time, String content, List<Review> replies) {
-        this.idReview = idReview;
-        this.avatar = avatar;
-        this.fullName = fullName;
+    public Review(String idUser, String time, String content, List<Review> replies) {
+        this.idUser=idUser;
         this.time = time;
         this.content = content;
         this.replies = replies;
@@ -73,12 +59,11 @@ public class Review {
     @Override
     public String toString() {
         return "Review{" +
-                "idReview=" + idReview +
-                ", avatar='" + avatar + '\'' +
-                ", fullName='" + fullName + '\'' +
+                ", idUser='" + idUser + '\'' +
                 ", time='" + time + '\'' +
                 ", content='" + content + '\'' +
                 ", replies=" + replies +
                 '}';
     }
+
 }

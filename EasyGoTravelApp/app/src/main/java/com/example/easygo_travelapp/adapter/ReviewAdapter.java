@@ -11,7 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.easygo_travelapp.R;
+import com.example.easygo_travelapp.activity.BaseActivity;
 import com.example.easygo_travelapp.model.Review;
+import com.example.easygo_travelapp.model.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -19,14 +24,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ItemViewHolder> {
     private Context context;
-    private List<Review> list;
+    private List<Review> listReview;
 
-    public ReviewAdapter(Context context, List<Review> list) {
+    public ReviewAdapter(Context context,List<Review>listReview) {
         this.context = context;
-        this.list = list;
+        this.listReview = listReview;
     }
 
     @NonNull
@@ -38,9 +45,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ItemViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        Review review=list.get(position+1);
-        Picasso.get().load(review.getAvatar()).into(holder.avatar);
-        holder.fullName.setText(review.getFullName());
+        Review review=listReview.get(listReview.size()-(position+1));
+        getInforUserFromFB(holder,review.getIdUser());
         holder.content.setText(review.getContent());
 
         try {
@@ -54,24 +60,40 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ItemViewHo
             int days = (int) (time / (24 * 60 * 60 * 1000));
 
             if (days > 0) {
-                holder.time.setText(days+"ngày trước");
+                holder.time.setText(days+" ngày trước");
             } else {
                 if (hours > 0) {
-                    holder.time.setText (hours + "h trước");
+                    holder.time.setText (hours + " h trước");
                 } else {
-                    holder.time.setText (mins + "' trước");
+                    holder.time.setText (mins + " ' trước");
                 }
             }
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
 
+    private void getInforUserFromFB(ItemViewHolder holder, String idUser){
+        DatabaseReference myRef=FirebaseDatabase.getInstance().getReference(BaseActivity.USERS+"/"+idUser);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user=snapshot.getValue(User.class);
+                Picasso.get().load(user.getUrlAvatar()).into(holder.avatar);
+                holder.fullName.setText(user.getUserName());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return list.size()-1;
+        return listReview.size();
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {

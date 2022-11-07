@@ -98,6 +98,7 @@ public class TourDetailActivity extends BaseActivity implements OnMapReadyCallba
             cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         }
     }
+
     private void getLocationPermission() {
         /*
          * Request location permission, so that we can get the location of the
@@ -167,7 +168,7 @@ public class TourDetailActivity extends BaseActivity implements OnMapReadyCallba
                 lastKnownLocation = null;
                 getLocationPermission();
             }
-        } catch (SecurityException e)  {
+        } catch (SecurityException e) {
         }
     }
 
@@ -194,18 +195,16 @@ public class TourDetailActivity extends BaseActivity implements OnMapReadyCallba
                     }
                 });
             }
-        } catch (SecurityException e)  {
+        } catch (SecurityException e) {
         }
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
         mMap = googleMap;
-         //Add a marker in Sydney and move the camera
-        for (TourDetail item:tour.getDetailTour())
-        {
-            LatLng sydney = new LatLng(item.getLatitude(),item.getLongitude());
+        //Add a marker in Sydney and move the camera
+        for (TourDetail item : tour.getDetailTour()) {
+            LatLng sydney = new LatLng(item.getLatitude(), item.getLongitude());
             mMap.addMarker(new MarkerOptions().position(sydney));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 13));
         }
