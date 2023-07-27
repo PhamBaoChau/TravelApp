@@ -83,7 +83,7 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
         setToolbar(toolbar);
         user = (User) getIntent().getBundleExtra(GET_USER).getSerializable(GET_USER);
         firebaseDatabase = FirebaseDatabase.getInstance();
-        myRef = firebaseDatabase.getReference("users");
+        myRef = firebaseDatabase.getReference(USERS);
         setInforUser(user.getUrlAvatar(), user.getUserName(), user.getEmail(), user.getPhone(), user.getGender(), user.getBirthday());
         initAction();
     }
@@ -119,7 +119,6 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
                         taskSnapshot.getStorage().getName()+"?alt=media";
 
                 user.setUrlAvatar(url);
-
             }
         });
     }
@@ -178,6 +177,7 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
 
     private void updateProfileUserFirebase() {
         String sUserName = user.getUserName();
+        String sUrlAvatar = user.getUrlAvatar();
         String sEmail = user.getEmail();
         String sPhone = user.getPhone();
         String sGender = user.getGender();
@@ -206,7 +206,7 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
                 && !ctBirthday.getContent().equals(user.getBirthday())) {
             sBirthday = ctBirthday.getContent();
         }
-        User newUser = new User(user.getIdUser(), user.getUrlAvatar(), sUserName, sEmail, sPhone, sGender, sBirthday);
+        User newUser = new User(user.getIdUser(), sUrlAvatar, sUserName, sEmail, sPhone, sGender, sBirthday);
         myRef.child(user.getIdUser()).setValue(newUser);
 
     }

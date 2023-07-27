@@ -68,7 +68,7 @@
     <string name="tour_and_ticket"><![CDATA[Tour & Ticket]]></string>
     <string name="write_a_review">Write a review</string>
     <string name="reply">Reply</string>
-    <string name="review">Review</string>
+    <string name="review">Reviews</string>
     <string name="add_to_my_trips">Add to my trips</string>
     <string name="vip_member">VIP member</string>
     <string name="notifications">Notifications</string>
@@ -90,5 +90,7 @@
     <string name="MyAppKey">AIzaSyBmGXfcm5JuBE61KzW8v7dgsO894rodVoA</string>
     <string name="days">days</string>
     <string name="write_your_review">Write your review ...</string>
+    <string name="cities">cities</string>
+    <string name="tours">Tours</string>
 
 </resources>

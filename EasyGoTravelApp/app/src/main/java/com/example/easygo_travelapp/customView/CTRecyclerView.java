@@ -49,8 +49,12 @@ public class CTRecyclerView extends ConstraintLayout implements View.OnClickList
         this.rvListItem.setAdapter(adapter);
     }
 
-    public void setTitle(String title) {
+    public void setTitleRecycleView(String title) {
         this.tvTitle.setText(title);
+    }
+
+    public TextView getTvViewAll() {
+        return tvViewAll;
     }
 
     @Override

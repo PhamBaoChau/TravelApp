@@ -1,17 +1,14 @@
 package com.example.easygo_travelapp.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
@@ -19,18 +16,38 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.easygo_travelapp.R;
 import com.example.easygo_travelapp.customView.CTToolbar;
+import com.example.easygo_travelapp.model.DetailScenic;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, NavigationBarView.OnItemSelectedListener {
     public static final String USERS = "users";
     public static final String SCENICS = "scenics";
+    public static final String FAVOURITE = "favourites";
+    public static final String TOURS = "tours";
     public static final String REVIEW = "review";
-    public static final String GET_USER="get_user";
-    public static final String GET_OBJECT="get_object";
-    public static final String GET_TOUR="get_tour";
+    public static final String GET_USER = "get_user";
+    public static final String GET_TOUR = "get_tours";
+    public static FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     private DrawerLayout drawerLayout;
+    public static FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    public static DatabaseReference referenceFavorite = firebaseDatabase.getReference(FAVOURITE + "/" + firebaseUser.getUid() + "/" + TOURS);
+    public static DatabaseReference referenceScenic = firebaseDatabase.getReference(SCENICS);
+    public static List<DetailScenic> allTour = getFireBaseTours();
+    public static List<Integer> favourites = getFireBaseFavourite();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,23 +56,23 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         System.out.println("Activity name: " + this.getLocalClassName());
         System.out.println("######################################################");
     }
-    public void setRatingStar(double rating, ImageView star1,ImageView star2,ImageView star3,ImageView star4,ImageView star5)
-    {
+
+    public static void setRatingStar(Context context, double rating, ImageView star1, ImageView star2, ImageView star3, ImageView star4, ImageView star5) {
         while (rating != 0) {
             if (rating < 5) {
-                star5.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.color_BEC2CE));
+                star5.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.color_BEC2CE));
             } else break;
             if (rating < 4) {
-                star4.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.color_BEC2CE));
+                star4.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.color_BEC2CE));
             } else break;
             if (rating < 3) {
-                star3.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.color_BEC2CE));
+                star3.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.color_BEC2CE));
             } else break;
             if (rating < 2) {
-                star2.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.color_BEC2CE));
+                star2.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.color_BEC2CE));
             } else break;
-            if (rating< 1) {
-                star1.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.color_BEC2CE));
+            if (rating < 1) {
+                star1.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.color_BEC2CE));
             } else break;
         }
     }
@@ -87,23 +104,21 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         bottomNavigationView.setOnItemSelectedListener(this);
     }
 
-    public void updateBottomNavState(BottomNavigationView bottomNavigationView){
-        int itemId=getIntent().getIntExtra("NavItem",-1);
-        Menu menu=bottomNavigationView.getMenu();
-        for (int i=0;i<menu.size();i++){
-            MenuItem menuItem=menu.getItem(i);
-            menuItem.setChecked(menuItem.getItemId()==itemId);
-        }
+    public void updateBottomNavState(BottomNavigationView bottomNavigationView) {
+        int itemId = getIntent().getIntExtra("NavItemId", -1);
+        Menu menu = bottomNavigationView.getMenu();
+        menu.findItem(itemId).setChecked(true);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Intent intent = null;
 
+        Intent intent = null;
         switch (item.getItemId()) {
             case R.id.btn_explore:
 
             case R.id.nav_home:
+
                 intent = new Intent(this, MainActivity.class);
                 break;
 
@@ -114,9 +129,10 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.btn_favourite:
-                break;
 
             case R.id.nav_favourite:
+                intent = new Intent(this, FavouriteActivity.class);
+
                 break;
 
             case R.id.btn_my_trip:
@@ -128,11 +144,59 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_log_out:
                 break;
         }
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("NavItemId", item.getItemId());
-        startActivity(intent);
 
+        startActivity(intent);
         this.drawerLayout.closeDrawer(GravityCompat.START);
         return false;
+    }
+
+    public static List<DetailScenic> getFireBaseTours() {
+        List<DetailScenic> result = new ArrayList<>();
+        referenceScenic.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                result.clear();
+                for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
+                    DetailScenic item = itemSnapshot.getValue(DetailScenic.class);
+                    result.add(item);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                System.out.println("Chau Loi" + error);
+            }
+        });
+        return result;
+    }
+
+    public static List<Integer> getFireBaseFavourite() {
+        List<Integer> result = new ArrayList<>();
+        referenceFavorite.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                result.clear();
+                for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
+                    Map<String, Object> map = (Map<String, Object>) itemSnapshot.getValue();
+
+                    int id = Integer.parseInt(map.get("idTour").toString());
+                    result.add(id);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                System.out.println("Chau Loi" + error);
+            }
+        });
+        return result;
     }
 }

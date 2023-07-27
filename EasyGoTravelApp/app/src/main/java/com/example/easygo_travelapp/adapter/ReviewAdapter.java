@@ -45,27 +45,28 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ItemViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        Review review=listReview.get(listReview.size()-(position+1));
-        getInforUserFromFB(holder,review.getIdUser());
+//        Review review=listReview.get(listReview.size()-(position+1));
+        Review review = listReview.get(position);
+        getInforUserFromFB(holder, review.getIdUser());
         holder.content.setText(review.getContent());
 
         try {
-            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd/MM/yyyy HH:mm");
-            String sCurrentTime=simpleDateFormat.format(Calendar.getInstance().getTime());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            String sCurrentTime = simpleDateFormat.format(Calendar.getInstance().getTime());
             Date currentTime = simpleDateFormat.parse(sCurrentTime);
-            Date postTime=simpleDateFormat.parse(review.getTime());
-            long time=currentTime.getTime()-postTime.getTime();
-            int hours = (int) (time/ (1000 * 60 * 60));
+            Date postTime = simpleDateFormat.parse(review.getTime());
+            long time = currentTime.getTime() - postTime.getTime();
+            int hours = (int) (time / (1000 * 60 * 60));
             int mins = (int) (time / (1000 * 60)) % 60;
             int days = (int) (time / (24 * 60 * 60 * 1000));
 
             if (days > 0) {
-                holder.time.setText(days+" ngày trước");
+                holder.time.setText(days + " ngày trước");
             } else {
                 if (hours > 0) {
-                    holder.time.setText (hours + " h trước");
+                    holder.time.setText(hours + " h trước");
                 } else {
-                    holder.time.setText (mins + " ' trước");
+                    holder.time.setText(mins + " ' trước");
                 }
             }
 
@@ -79,9 +80,13 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ItemViewHo
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User user=snapshot.getValue(User.class);
-                Picasso.get().load(user.getUrlAvatar()).into(holder.avatar);
-                holder.fullName.setText(user.getUserName());
+                User user = snapshot.getValue(User.class);
+                if (user.getUrlAvatar() != null) {
+                    Picasso.get().load(user.getUrlAvatar()).into(holder.avatar);
+                }
+                if (user.getUserName() != null) {
+                    holder.fullName.setText(user.getUserName());
+                }
             }
 
             @Override

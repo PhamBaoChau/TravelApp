@@ -40,10 +40,13 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     private BottomNavigationView bottomNavView;
     private ImageView avatar;
     private TextView fullName, tvVipMember, tvLogin;
-    public User currentUser;
-    DatabaseReference myRef;
+    public static User currentUser;
+    public static DatabaseReference myRef;
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
 
     private void init() {
+        myRef = firebaseDatabase.getReference(USERS + "/" + firebaseUser.getUid());
         drawerLayout = findViewById(R.id.drawerLayout);
         toolbar = findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.navigationView);
@@ -58,14 +61,12 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        myRef = firebaseDatabase.getReference("users");
         init();
         initActionToolbar(toolbar, drawerLayout, navigationView);
         initActionMenuDetail(toolbar);
         initActionBottomNavView(bottomNavView);
         updateBottomNavState(bottomNavView);
-        getCurrentUser(myRef);
+        getCurrentUser();
         initAction();
     }
 
@@ -74,10 +75,26 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         avatar.setOnClickListener(this);
     }
 
-    private void getCurrentUser(DatabaseReference myRef) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user!=null){
-            getUserProfile(user,myRef);
+    private void getCurrentUser() {
+        if (firebaseUser != null) {
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    User user = snapshot.getValue(User.class);
+                    currentUser = user;
+                    if (user == null) {
+                        String path = firebaseUser.getPhotoUrl() == null ? null : firebaseUser.getPhotoUrl().getPath();
+                        createProfileUserFirebase(firebaseUser.getUid(), path, firebaseUser.getDisplayName(), firebaseUser.getEmail(), firebaseUser.getPhoneNumber(), null, null);
+                    } else {
+                        setDataForUi(user);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         }
 
 //        if (user!=null){
@@ -95,52 +112,50 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 //        }
     }
 
-    private void getUserProfile(FirebaseUser firebaseUser, DatabaseReference myRef) {
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                int count = 0;
-                int total = (int) dataSnapshot.getChildrenCount();
-
-                if (total == 0) {
-                    String path = firebaseUser.getPhotoUrl() == null ? null : firebaseUser.getPhotoUrl().getPath();
-                    createProfileUserFirebase(firebaseUser.getUid(), path, firebaseUser.getDisplayName(), firebaseUser.getEmail(), firebaseUser.getPhoneNumber(), null, null);
-                }else {
-                    for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
-                        User user = itemSnapshot.getValue(User.class);
-                        count++;
-                        if (user.getIdUser().equals(firebaseUser.getUid())) {
-                            setDataForUi(user);
-                            break;
-                        }
-                        if (count == total) {
-                            String path=firebaseUser.getPhotoUrl()==null?null:firebaseUser.getPhotoUrl().getPath();
-                            createProfileUserFirebase(firebaseUser.getUid(), path, firebaseUser.getDisplayName(), firebaseUser.getEmail(), firebaseUser.getPhoneNumber(), null, null);
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-
-            }
-        });
-    }
+//    private void getUserProfile(FirebaseUser firebaseUser, DatabaseReference myRef) {
+//        myRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                int count = 0;
+//                int total = (int) dataSnapshot.getChildrenCount();
+//
+//                if (total == 0) {
+//
+//                } else {
+//                    for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
+//                        User user = itemSnapshot.getValue(User.class);
+//                        count++;
+//                        if (user.getIdUser().equals(firebaseUser.getUid())) {
+//                            setDataForUi(user);
+//                            break;
+//                        }
+//                        if (count == total) {
+//                            String path = firebaseUser.getPhotoUrl() == null ? null : firebaseUser.getPhotoUrl().getPath();
+//                            createProfileUserFirebase(firebaseUser.getUid(), firebaseUser.g, path, firebaseUser.getDisplayName(), firebaseUser.getEmail(), firebaseUser.getPhoneNumber(), null, null);
+//                        }
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//
+//            }
+//        });
+//    }
 
     private void createProfileUserFirebase(String idUser, String urlAvatar, String userName, String email, String phone, String gender, String birthday) {
         User newUser = new User(idUser, urlAvatar, userName, email, phone, gender, birthday);
-        myRef.child(idUser).setValue(newUser);
+        myRef.setValue(newUser);
     }
 
     private void setDataForUi(User user) {
-        currentUser = user;
-        if (user.getUrlAvatar()!=null) {
+        if (user.getUrlAvatar() != null) {
             Picasso.get().load(user.getUrlAvatar()).into(avatar);
         } else {
             Picasso.get().load("https://www.i-music.com.hk/assets/images/no-avatar.png").into(avatar);
         }
-        if (user.getUserName()!=null) {
+        if (user.getUserName() != null) {
             fullName.setText(user.getUserName());
         } else {
             fullName.setText(getString(R.string.not_been_set));

@@ -1,5 +1,8 @@
 package com.example.easygo_travelapp.activity;
 
+import static com.example.easygo_travelapp.adapter.ScenicAdapter.ID_SCENIC;
+
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 
 import androidx.annotation.NonNull;
@@ -8,6 +11,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -34,12 +40,15 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ItemDetailsActivity extends BaseActivity implements View.OnClickListener {
     private CTToolbar toolbar;
     private ImageView bg_header;
     private TextView location;
     private TextView name;
+    private TextView tvNumReview;
     private TextView tvReview;
     private TextView btnReview;
     private TextView description;
@@ -52,11 +61,11 @@ public class ItemDetailsActivity extends BaseActivity implements View.OnClickLis
     private ConstraintLayout layoutWriteReview;
     private ImageView avatarReview;
     private ImageButton btnSend;
-    private Review review;
-    private int idScenic;
+    private int position;
     private DatabaseReference myRef;
     private int idReview;
     private String idUser;
+    public static DetailScenic scenic;
 
     private void init() {
         toolbar = findViewById(R.id.toolbar);
@@ -64,6 +73,7 @@ public class ItemDetailsActivity extends BaseActivity implements View.OnClickLis
         location = findViewById(R.id.tvLocation);
         name = findViewById(R.id.tvTitle);
         tvReview = findViewById(R.id.tvReviews);
+        tvNumReview = findViewById(R.id.review);
         btnReview = findViewById(R.id.btnWriteReview);
         edtReview = findViewById(R.id.edtWriteReview);
         description = findViewById(R.id.tvDescription);
@@ -86,10 +96,9 @@ public class ItemDetailsActivity extends BaseActivity implements View.OnClickLis
         setContentView(R.layout.activity_item_details);
         init();
         initAction();
-        idScenic = getIntent().getIntExtra(ScenicAdapter.ID_SCENIC, 0);
+        position = getIntent().getIntExtra(ScenicAdapter.ID_SCENIC, -1);
         getAvatarUser();
-        myRef = FirebaseDatabase.getInstance().getReference(SCENICS+"/"+idScenic);
-
+        myRef = referenceScenic.child(String.valueOf(position));
         getDataScenic();
         toolbar.setVisibleBack();
         toolbar.setVisibleMenuDetail();
@@ -98,6 +107,7 @@ public class ItemDetailsActivity extends BaseActivity implements View.OnClickLis
     private void initAction() {
         btnReview.setOnClickListener(this);
         btnSend.setOnClickListener(this);
+        location.setOnClickListener(this);
     }
 
     private void displayAvatarReview(String idUser) {
@@ -121,8 +131,9 @@ public class ItemDetailsActivity extends BaseActivity implements View.OnClickLis
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                DetailScenic scenic = snapshot.getValue(DetailScenic.class);
+                scenic = snapshot.getValue(DetailScenic.class);
                 setDataItem(scenic);
+                updateFavorite(referenceFavorite);
             }
 
             @Override
@@ -132,13 +143,35 @@ public class ItemDetailsActivity extends BaseActivity implements View.OnClickLis
         });
     }
 
+    private void updateFavorite(DatabaseReference myRef) {
+        int idScenic = scenic.getIdScenic();
+        boolean flag = false;
+        for (Integer favourite : favourites) {
+            if (favourite == idScenic) {
+                flag = true;
+                break;
+            }
+        }
+
+        if (flag == false) {
+            Map<String, Integer> map = new HashMap<>();
+            map.put("idTour", idScenic);
+            myRef.child(String.valueOf(favourites.size())).setValue(map);
+        }
+    }
+
     public void setDataItem(DetailScenic scenic) {
-        Picasso.get().load(scenic.getInforCommon().getImageScenic()).into(bg_header);
-        location.setText(scenic.getInforCommon().getLocation());
-        name.setText(scenic.getInforCommon().getNameScenic());
+        System.out.println("Chau" + scenic.getIdScenic());
+        if (!scenic.getImageScenic().isEmpty()) {
+            Picasso.get().load(scenic.getImageScenic()).into(bg_header);
+        }
+
+        location.setText(scenic.getLocation());
+        name.setText(scenic.getNameScenic());
         description.setText(scenic.getDescription());
-        setRatingStar(scenic.getRating(), star1, star2, star3, star4, star5);
+        setRatingStar(this, scenic.getRating(), star1, star2, star3, star4, star5);
         int nReview = scenic.getReview() != null ? scenic.getReview().size() : 0;
+        tvNumReview.setText(nReview + " " + getString(R.string.review));
         tvReview.setText(getString(R.string.review) + " (" + nReview + ")");
 
         String[] sPhotos = scenic.getPhotos().split(",");
@@ -148,9 +181,9 @@ public class ItemDetailsActivity extends BaseActivity implements View.OnClickLis
             rvPhotos.setAdapter(photoAdapter);
         }
 
-        if (scenic.getTour() != null) {
+        if (scenic.getCities() != null) {
             rvTourAndTickets.setLayoutManager(new LinearLayoutManager(ItemDetailsActivity.this));
-            tourAndTicketAdapter = new TourAndTicketAdapter(ItemDetailsActivity.this, scenic.getTour());
+            tourAndTicketAdapter = new TourAndTicketAdapter(ItemDetailsActivity.this, scenic.getCities());
             rvTourAndTickets.setAdapter(tourAndTicketAdapter);
         }
 
@@ -180,10 +213,19 @@ public class ItemDetailsActivity extends BaseActivity implements View.OnClickLis
                 idReview = rvReviews.getChildCount() == 0 ? 0 : reviewAdapter.getItemCount();
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                 String sCurrentTime = simpleDateFormat.format(Calendar.getInstance().getTime());
-                Review review = new Review(idUser, sCurrentTime, edtReview.getText().toString(), null);
+                Review review = new Review(idUser, sCurrentTime, edtReview.getText().toString());
                 myRef.child(String.valueOf(REVIEW)).child(String.valueOf(idReview)).setValue(review);
                 edtReview.setText(null);
                 edtReview.clearFocus();
+            }
+        }
+        if (v.getId() == location.getId()) {
+            if (location.getText() != null) {
+                Bundle bundle = new Bundle();
+                Intent intent = new Intent(this, TourDetailActivity.class);
+                bundle.putSerializable(GET_TOUR, scenic);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         }
     }

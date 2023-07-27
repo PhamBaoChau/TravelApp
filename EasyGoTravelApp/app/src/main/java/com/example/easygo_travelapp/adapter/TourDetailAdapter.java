@@ -11,17 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.easygo_travelapp.R;
-import com.example.easygo_travelapp.model.TourAndTicket;
-import com.example.easygo_travelapp.model.TourDetail;
+import com.example.easygo_travelapp.model.City;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class TourDetailAdapter extends RecyclerView.Adapter<TourDetailAdapter.ItemViewHolder> {
     private Context context;
-    private List<TourDetail> tourDetails;
+    private List<City> tourDetails;
 
-    public TourDetailAdapter(Context context, List<TourDetail> tourDetails) {
+    public TourDetailAdapter(Context context, List<City> tourDetails) {
         this.context = context;
         this.tourDetails = tourDetails;
     }
@@ -34,11 +33,16 @@ public class TourDetailAdapter extends RecyclerView.Adapter<TourDetailAdapter.It
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TourDetailAdapter.ItemViewHolder holder, int position) {
-        TourDetail item=tourDetails.get(position);
-        Picasso.get().load(item.getImageTour()).into(holder.imgScenic);
-        holder.nameScenic.setText(item.getNameTour());
-        holder.rating.setText(String.valueOf(item.getRating()));
+    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
+        City city = tourDetails.get(position);
+        try {
+            Picasso.get().load(city.getImageCity()).into(holder.imageScenic);
+            System.out.println("Chau" + city.getNameCity());
+            holder.nameScenic.setText(city.getNameCity());
+            holder.rating.setText(String.valueOf(city.getRating()));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @Override
@@ -47,14 +51,15 @@ public class TourDetailAdapter extends RecyclerView.Adapter<TourDetailAdapter.It
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imgScenic;
-        private TextView nameScenic,rating,distance;
+        private final ImageView imageScenic;
+        private final TextView nameScenic, rating, distance;
+
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgScenic=itemView.findViewById(R.id.imgScenic);
-            nameScenic=itemView.findViewById(R.id.tvNameScenic);
-            rating=itemView.findViewById(R.id.tvRating);
-            distance=itemView.findViewById(R.id.tvDistance);
+            this.imageScenic = itemView.findViewById(R.id.imgCity);
+            this.nameScenic = itemView.findViewById(R.id.tvNameCity);
+            this.rating = itemView.findViewById(R.id.tvRating);
+            this.distance = itemView.findViewById(R.id.tvDistance);
         }
     }
 }

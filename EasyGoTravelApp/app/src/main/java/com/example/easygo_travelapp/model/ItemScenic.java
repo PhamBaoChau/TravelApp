@@ -1,6 +1,8 @@
 package com.example.easygo_travelapp.model;
 
-public class ItemScenic {
+import java.io.Serializable;
+
+public class ItemScenic implements Serializable {
     private int idScenic;
     private String imageScenic;
     private String nameScenic;

@@ -1,6 +1,9 @@
 package com.example.easygo_travelapp.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -10,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.easygo_travelapp.R;
 import com.example.easygo_travelapp.customView.CTRecyclerView;
 import com.example.easygo_travelapp.customView.CTToolbar;
+import com.example.easygo_travelapp.model.DetailScenic;
 import com.example.easygo_travelapp.model.ItemScenic;
-import com.example.easygo_travelapp.utilities.URLs;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
@@ -20,8 +23,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends BaseActivity {
 
@@ -29,16 +35,17 @@ public class MainActivity extends BaseActivity {
     private CTToolbar toolbar;
     private NavigationView navigationView;
     private BottomNavigationView bottomNavView;
-    private CTRecyclerView ctRecyclerViewLove, ctRecyclerViewDeal;
+    private CTRecyclerView ctRecyclerViewTour, ctRecyclerViewDeal;
     List<ItemScenic> listScenic = new ArrayList<>();
+    List<DetailScenic> listTour = new ArrayList<>();
 
     private void init() {
-        drawerLayout = findViewById(R.id.drawerLayout);
-        toolbar = findViewById(R.id.toolbar);
-        navigationView=findViewById(R.id.navigationView);
-        bottomNavView = findViewById(R.id.bottom_navigation);
-        ctRecyclerViewLove = findViewById(R.id.ctRVLove);
-        ctRecyclerViewDeal = findViewById(R.id.ctRVDeal);
+        this.drawerLayout = findViewById(R.id.drawerLayout);
+        this.toolbar = findViewById(R.id.toolbar);
+        this.navigationView = findViewById(R.id.navigationView);
+        this.bottomNavView = findViewById(R.id.bottom_navigation);
+        this.ctRecyclerViewTour = findViewById(R.id.ctRVLove);
+        this.ctRecyclerViewDeal = findViewById(R.id.ctRVDeal);
     }
 
     @Override
@@ -46,16 +53,27 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-        initActionToolbar(toolbar,drawerLayout,navigationView);
+        initActionToolbar(toolbar, drawerLayout, navigationView);
         initActionSearch(toolbar);
         initActionBottomNavView(bottomNavView);
+        ctRecyclerViewTour.setTitleRecycleView(getString(R.string.destinations_we_love));
+        ctRecyclerViewDeal.setTitleRecycleView(getString(R.string.deals));
+        getDataScenic(referenceScenic);
+        eventShowAllTours(this);
+    }
 
-        //Container
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference reference = firebaseDatabase.getReference(URLs.destinationWeLove);
-        getDataScenic(reference);
-        ctRecyclerViewLove.setTitle(getString(R.string.destinations_we_love));
-        ctRecyclerViewDeal.setTitle(getString(R.string.deals));
+    private void eventShowAllTours(Context context) {
+        ctRecyclerViewTour.getTvViewAll().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("Chau item");
+                Bundle bundle = new Bundle();
+                Intent intent = new Intent(context, TourActivity.class);
+                bundle.putSerializable(GET_TOUR, (Serializable) listTour);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
     private void getDataScenic(DatabaseReference myRef) {
@@ -68,11 +86,13 @@ public class MainActivity extends BaseActivity {
                 // whenever data at this location is updated.
                 for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
                     ItemScenic itemScenic = itemSnapshot.getValue(ItemScenic.class);
-                    listScenic.add( itemScenic);
+                    DetailScenic itemTourAndTicket = itemSnapshot.getValue(DetailScenic.class);
+                    listScenic.add(itemScenic);
+                    listTour.add(itemTourAndTicket);
                     System.out.println("Chau: " + listScenic.toString());
                 }
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this, RecyclerView.HORIZONTAL, false);
-                ctRecyclerViewLove.showDataRecycleView(listScenic, linearLayoutManager);
+                ctRecyclerViewTour.showDataRecycleView(listScenic, linearLayoutManager);
                 GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this, 2);
                 ctRecyclerViewDeal.showDataRecycleView(listScenic, gridLayoutManager);
             }

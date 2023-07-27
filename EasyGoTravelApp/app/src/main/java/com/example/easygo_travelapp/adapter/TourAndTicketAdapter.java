@@ -1,8 +1,6 @@
 package com.example.easygo_travelapp.adapter;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,16 +12,16 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.easygo_travelapp.R;
-import com.example.easygo_travelapp.model.TourAndTicket;
+import com.example.easygo_travelapp.model.City;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class TourAndTicketAdapter extends RecyclerView.Adapter<TourAndTicketAdapter.ItemViewHolder> {
     private Context context;
-    private List<TourAndTicket> list;
+    private List<City> list;
 
-    public TourAndTicketAdapter(Context context, List<TourAndTicket> list) {
+    public TourAndTicketAdapter(Context context, List<City> list) {
         this.context = context;
         this.list = list;
     }
@@ -37,14 +35,19 @@ public class TourAndTicketAdapter extends RecyclerView.Adapter<TourAndTicketAdap
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        TourAndTicket item = list.get(position+1);
-        Picasso.get().load(item.getImageTour()).into(holder.imgTour);
-        holder.nameTour.setText(item.getNameTour());
-        holder.price.setText("$" + item.getPrice());
-        setRatingStar(item.getRating(), holder.star1,holder.star2, holder.star3, holder.star4, holder.star5);
+        City tourAndTicket = list.get(position);
+        try {
+            Picasso.get().load(tourAndTicket.getImageCity()).into(holder.imgTour);
+            holder.nameTour.setText(tourAndTicket.getNameCity());
+            holder.price.setText("$" + tourAndTicket.getPrice());
+            setRatingStar(tourAndTicket.getRating(), holder.star1, holder.star2, holder.star3, holder.star4, holder.star5);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
     }
 
-    public void setRatingStar(double rating, ImageView star1,ImageView star2,ImageView star3,ImageView star4,ImageView star5) {
+    public void setRatingStar(double rating, ImageView star1, ImageView star2, ImageView star3, ImageView star4, ImageView star5) {
         while (rating != 0) {
             if (rating < 5) {
                 star5.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.color_BEC2CE));
@@ -58,7 +61,7 @@ public class TourAndTicketAdapter extends RecyclerView.Adapter<TourAndTicketAdap
             if (rating < 2) {
                 star2.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.color_BEC2CE));
             } else break;
-            if (rating< 1) {
+            if (rating < 1) {
                 star1.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.color_BEC2CE));
             } else break;
         }
@@ -66,7 +69,7 @@ public class TourAndTicketAdapter extends RecyclerView.Adapter<TourAndTicketAdap
 
     @Override
     public int getItemCount() {
-        return list.size()-1;
+        return list.size();
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -76,14 +79,14 @@ public class TourAndTicketAdapter extends RecyclerView.Adapter<TourAndTicketAdap
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgTour = itemView.findViewById(R.id.imgTour);
-            nameTour = itemView.findViewById(R.id.tvNameTour);
-            price = itemView.findViewById(R.id.tvPrice);
-            star1 = itemView.findViewById(R.id.imgStar1);
-            star2 = itemView.findViewById(R.id.imgStar2);
-            star3 = itemView.findViewById(R.id.imgStar3);
-            star4 = itemView.findViewById(R.id.imgStar4);
-            star5 = itemView.findViewById(R.id.imgStar5);
+            this.imgTour = itemView.findViewById(R.id.imgTour);
+            this.nameTour = itemView.findViewById(R.id.tvNameTour);
+            this.price = itemView.findViewById(R.id.tvPrice);
+            this.star1 = itemView.findViewById(R.id.imgStar1);
+            this.star2 = itemView.findViewById(R.id.imgStar2);
+            this.star3 = itemView.findViewById(R.id.imgStar3);
+            this.star4 = itemView.findViewById(R.id.imgStar4);
+            this.star5 = itemView.findViewById(R.id.imgStar5);
         }
     }
 }

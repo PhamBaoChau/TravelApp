@@ -1,21 +1,25 @@
 package com.example.easygo_travelapp.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class DetailScenic {
-    private ItemScenic inforCommon;
+public class DetailScenic extends ItemScenic implements Serializable {
     private int rating;
+    private int timeTour;
     private String description;
     private String photos;
-    private List<TourAndTicket> tour;
     private List<Review> review;
 
-    public ItemScenic getInforCommon() {
-        return inforCommon;
+    private List<City> cities;
+
+    private int price;
+
+    public List<Review> getReview() {
+        return review;
     }
 
-    public void setInforCommon(ItemScenic inforCommon) {
-        this.inforCommon = inforCommon;
+    public void setReview(List<Review> review) {
+        this.review = review;
     }
 
     public int getRating() {
@@ -42,43 +46,41 @@ public class DetailScenic {
         this.photos = photos;
     }
 
-    public List<TourAndTicket> getTour() {
-        return tour;
+    public List<City> getCities() {
+        return cities;
     }
 
-    public void setTour(List<TourAndTicket> tour) {
-        this.tour = tour;
+    public void setCities(List<City> cities) {
+        this.cities = cities;
     }
 
-    public List<Review> getReview() {
-        return review;
+    public int getTimeTour() {
+        return timeTour;
     }
 
-    public void setReview(List<Review> review) {
-        this.review = review;
+    public void setTimeTour(int timeTour) {
+        this.timeTour = timeTour;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public DetailScenic() {
     }
 
-    public DetailScenic(ItemScenic inforCommon, int rating, String description, String photos, List<TourAndTicket> tour, List<Review> review) {
-        this.inforCommon = inforCommon;
+    public DetailScenic(int idScenic, String imageScenic, String nameScenic, String location, int rating, int timeTour, String description, String photos, List<Review> review, List<City> cities, int price) {
+        super(idScenic, imageScenic, nameScenic, location);
         this.rating = rating;
+        this.timeTour = timeTour;
         this.description = description;
         this.photos = photos;
-        this.tour = tour;
         this.review = review;
-    }
-
-    @Override
-    public String toString() {
-        return "DetailScenic{" +
-                "inforCommon=" + inforCommon +
-                ", rating=" + rating +
-                ", description='" + description + '\'' +
-                ", photos='" + photos + '\'' +
-                ", tour=" + tour +
-                ", review=" + review +
-                '}';
+        this.cities = cities;
+        this.price = price;
     }
 }

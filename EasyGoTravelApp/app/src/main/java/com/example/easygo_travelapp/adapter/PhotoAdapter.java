@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.easygo_travelapp.R;
 import com.squareup.picasso.Picasso;
 
-import java.util.Arrays;
-
 public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ItemViewHolder> {
     private Context context;
     private String[] photos;
@@ -32,8 +30,14 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ItemViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        String url=photos[position];
-        Picasso.get().load(url).into(holder.imagePhoto);
+        String url = photos[position];
+        System.out.println("Chau: " + photos.toString());
+        try {
+            Picasso.get().load(url).into(holder.imagePhotoScenic);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
     }
 
     @Override
@@ -42,10 +46,10 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ItemViewHold
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imagePhoto;
+        private ImageView imagePhotoScenic;
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            imagePhoto=itemView.findViewById(R.id.imgPhoto);
+            imagePhotoScenic = itemView.findViewById(R.id.imgPhotoScenic);
         }
     }
 }

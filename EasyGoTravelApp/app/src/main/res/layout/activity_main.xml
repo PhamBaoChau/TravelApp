@@ -40,10 +40,12 @@
                     android:orientation="vertical">
 
                     <ImageButton
+                        android:id="@+id/btnFlights"
                         android:layout_width="55dp"
                         android:layout_height="55dp"
                         android:layout_marginHorizontal="10dp"
-                        android:background="@drawable/ic_flight" />
+                        android:background="@drawable/ic_flight"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -51,7 +53,7 @@
                         android:layout_marginVertical="10dp"
                         android:text="@string/flights"
                         android:textColor="@color/color_B3B6C1"
-                        android:textSize="15dp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -62,10 +64,12 @@
                     android:orientation="vertical">
 
                     <ImageButton
+                        android:id="@+id/btnHotels"
                         android:layout_width="55dp"
                         android:layout_height="55dp"
                         android:layout_marginHorizontal="10dp"
-                        android:background="@drawable/ic_hotel" />
+                        android:background="@drawable/ic_hotel"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -73,7 +77,7 @@
                         android:layout_marginVertical="10dp"
                         android:text="@string/hotels"
                         android:textColor="@color/color_B3B6C1"
-                        android:textSize="15dp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -84,10 +88,12 @@
                     android:orientation="vertical">
 
                     <ImageButton
+                        android:id="@+id/btnTrains"
                         android:layout_width="55dp"
                         android:layout_height="55dp"
                         android:layout_marginHorizontal="10dp"
-                        android:background="@drawable/ic_train" />
+                        android:background="@drawable/ic_train"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -95,7 +101,7 @@
                         android:layout_marginVertical="10dp"
                         android:text="@string/trains"
                         android:textColor="@color/color_B3B6C1"
-                        android:textSize="15dp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -106,10 +112,12 @@
                     android:orientation="vertical">
 
                     <ImageButton
+                        android:id="@+id/btnCars"
                         android:layout_width="55dp"
                         android:layout_height="55dp"
                         android:layout_marginHorizontal="10dp"
-                        android:background="@drawable/ic_car" />
+                        android:background="@drawable/ic_car"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -117,7 +125,7 @@
                         android:layout_marginVertical="10dp"
                         android:text="@string/cars"
                         android:textColor="@color/color_B3B6C1"
-                        android:textSize="15dp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.appbar.AppBarLayout>

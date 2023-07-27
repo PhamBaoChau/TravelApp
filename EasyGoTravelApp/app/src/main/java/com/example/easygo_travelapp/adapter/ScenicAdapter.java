@@ -20,12 +20,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class ScenicAdapter extends RecyclerView.Adapter<ScenicAdapter.ItemViewHolder>{
-    public static final String ID_SCENIC="id_scenic";
+public class ScenicAdapter extends RecyclerView.Adapter<ScenicAdapter.ItemViewHolder> {
+    public static final String ID_SCENIC = "id_scenic";
     private Context context;
     private List<ItemScenic> listScenic;
     private ItemScenic itemScenic;
-    int pos;
 
     public ScenicAdapter(Context context, List<ItemScenic> listScenic) {
         this.context = context;
@@ -42,18 +41,22 @@ public class ScenicAdapter extends RecyclerView.Adapter<ScenicAdapter.ItemViewHo
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         itemScenic = listScenic.get(position);
-        Picasso.get().load(itemScenic.getImageScenic()).into(holder.image);
-        holder.name.setText(String.valueOf(itemScenic.getNameScenic()));
-        holder.location.setText(itemScenic.getLocation());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Activity activity= (Activity) context;
-                Intent intent=new Intent(activity,ItemDetailsActivity.class);
-                intent.putExtra(ID_SCENIC,listScenic.get(holder.getAdapterPosition()).getIdScenic());
-                activity.startActivity(intent);
-            }
-        });
+        try {
+            Picasso.get().load(itemScenic.getImageScenic()).into(holder.image);
+            holder.name.setText(String.valueOf(itemScenic.getNameScenic()));
+            holder.location.setText(itemScenic.getLocation());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Activity activity = (Activity) context;
+                    Intent intent = new Intent(activity, ItemDetailsActivity.class);
+                    intent.putExtra(ID_SCENIC, holder.getAdapterPosition());
+                    activity.startActivity(intent);
+                }
+            });
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @Override
@@ -63,14 +66,13 @@ public class ScenicAdapter extends RecyclerView.Adapter<ScenicAdapter.ItemViewHo
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         private ImageView image;
-        private TextView name;
-        private TextView location;
+        private TextView name, location;
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.imgScenic);
-            name = itemView.findViewById(R.id.tvScenicName);
-            location = itemView.findViewById(R.id.tvLocation);
+            this.image = itemView.findViewById(R.id.imgScenic);
+            this.name = itemView.findViewById(R.id.tvScenicName);
+            this.location = itemView.findViewById(R.id.tvLocation);
         }
     }
 }

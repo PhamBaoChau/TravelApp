@@ -1,34 +1,29 @@
 package com.example.easygo_travelapp.activity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.Manifest;
 import android.content.pm.PackageManager;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.easygo_travelapp.R;
 import com.example.easygo_travelapp.adapter.TourDetailAdapter;
 import com.example.easygo_travelapp.customView.CTToolbar;
-import com.example.easygo_travelapp.model.Tour;
-import com.example.easygo_travelapp.model.TourDetail;
+import com.example.easygo_travelapp.model.DetailScenic;
+import com.example.easygo_travelapp.model.City;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -39,7 +34,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class TourDetailActivity extends BaseActivity implements OnMapReadyCallback {
+public class TourDetailActivity extends AppCompatActivity implements OnMapReadyCallback {
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
@@ -49,12 +44,13 @@ public class TourDetailActivity extends BaseActivity implements OnMapReadyCallba
     private ImageView imgTour;
     private TextView tvNameTour, location, timeTour;
     private ImageView star1, star2, star3, star4, star5;
-    private Tour tour;
+    private List<City> cities;
     PlacesClient placesClient;
     FusedLocationProviderClient fusedLocationProviderClient;
     boolean locationPermissionGranted;
     Location lastKnownLocation;
     Location cameraPosition;
+    DetailScenic scenic;
 
     private void init() {
         toolbar = findViewById(R.id.toolbar);
@@ -75,17 +71,18 @@ public class TourDetailActivity extends BaseActivity implements OnMapReadyCallba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tour_detail);
         init();
-        tour = (Tour) getIntent().getBundleExtra(BaseActivity.GET_TOUR).getSerializable(BaseActivity.GET_TOUR);
-
+        Bundle bundle = getIntent().getExtras();
+        scenic = (DetailScenic) bundle.getSerializable(BaseActivity.GET_TOUR);
+        cities = scenic.getCities();
         toolbar.setVisibleBack();
-        toolbar.setTitleToolbar(tour.getLocation());
+        toolbar.setTitleToolbar(scenic.getLocation());
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fmMaps);
         mapFragment.getMapAsync(this);
-        setItemCurrentTour(tour);
-        setListTourDetail(tour.getDetailTour());
+        setItemCurrentTour(scenic);
+        setListTourDetail(cities);
 
         // Construct a PlacesClient
         Places.initialize(getApplicationContext(), getString(R.string.google_api_key));
@@ -116,18 +113,18 @@ public class TourDetailActivity extends BaseActivity implements OnMapReadyCallba
         }
     }
 
-    private void setListTourDetail(List<TourDetail> tourDetails) {
+    private void setListTourDetail(List<City> tourDetails) {
         TourDetailAdapter adapter = new TourDetailAdapter(this, tourDetails);
         rvTourDetail.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         rvTourDetail.setAdapter(adapter);
     }
 
-    private void setItemCurrentTour(Tour tour) {
-        Picasso.get().load(tour.getImageTour()).into(imgTour);
-        tvNameTour.setText(tour.getNameTour());
+    private void setItemCurrentTour(DetailScenic tour) {
+        Picasso.get().load(tour.getImageScenic()).into(imgTour);
+        tvNameTour.setText(tour.getNameScenic());
         location.setText(tour.getLocation());
         timeTour.setText(tour.getTimeTour() + getString(R.string.days));
-        setRatingStar(tour.getRating(), star1, star2, star3, star4, star5);
+        BaseActivity.setRatingStar(this, tour.getRating(), star1, star2, star3, star4, star5);
     }
 
     @Override
@@ -203,7 +200,7 @@ public class TourDetailActivity extends BaseActivity implements OnMapReadyCallba
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         //Add a marker in Sydney and move the camera
-        for (TourDetail item : tour.getDetailTour()) {
+        for (City item : cities) {
             LatLng sydney = new LatLng(item.getLatitude(), item.getLongitude());
             mMap.addMarker(new MarkerOptions().position(sydney));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 13));
